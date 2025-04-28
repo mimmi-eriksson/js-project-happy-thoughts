@@ -1,5 +1,15 @@
-export const App = () => {
+import Header from "./sections/Header"
+import FormSection from "./sections/FormSection"
+import MessagesSection from "./sections/MessagesSection"
+
+const App = () => {
   return (
-    <h1>Happy Thoughts</h1>
+    <>
+      <Header />
+      <FormSection />
+      <MessagesSection />
+    </>
   )
 }
+
+export default App
