@@ -1,3 +1,6 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+@import "tailwindcss";
+
+body {
+  background: #fff3f3;
+  margin: 50px;
 }

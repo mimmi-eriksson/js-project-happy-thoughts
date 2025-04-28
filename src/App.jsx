@@ -1,13 +1,11 @@
 import Header from "./sections/Header"
-import FormSection from "./sections/FormSection"
-import MessagesSection from "./sections/MessagesSection"
+import MainSection from "./sections/MainSection"
 
 const App = () => {
   return (
     <>
       <Header />
-      <FormSection />
-      <MessagesSection />
+      <MainSection />
     </>
   )
 }

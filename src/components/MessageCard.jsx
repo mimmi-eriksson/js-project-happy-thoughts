@@ -1,3 +1,5 @@
+import LikeButton from "./LikeButton"
+
 const MessageCard = ({ message, likes, time }) => {
   const minutes = time
 
@@ -7,7 +9,7 @@ const MessageCard = ({ message, likes, time }) => {
       <div>
         <div>
           <LikeButton />
-          <p>{likes}</p>
+          <p>x {likes}</p>
         </div>
         <p>{minutes} ago</p>
       </div>

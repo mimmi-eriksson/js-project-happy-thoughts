@@ -1,6 +1,9 @@
 const SubmitButton = () => {
   return (
-    <button type="submit">
+    <button
+      className="bg-[#ffadad] rounded-full py-2 px-5"
+      type="submit"
+    >
       <p>
         ❤️ Send Happy Thought ❤️
       </p>
