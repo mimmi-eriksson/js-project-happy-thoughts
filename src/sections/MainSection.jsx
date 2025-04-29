@@ -12,8 +12,8 @@ const MainSection = () => {
         <div
           className="flex flex-col gap-10"
         >
-          <MessageCard message="React is making me happy!" likes="0" time="30 seconds" />
-          <MessageCard message="It's sunny!" likes="14" time="15 minutes" />
+          <MessageCard message="React is making me happy!" time="30 seconds" />
+          <MessageCard message="It's sunny!" time="15 minutes" />
         </div>
       </div>
     </section>
