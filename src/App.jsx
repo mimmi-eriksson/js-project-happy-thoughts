@@ -4,8 +4,12 @@ import MainSection from "./sections/MainSection"
 const App = () => {
   return (
     <>
-      <Header />
-      <MainSection />
+      <div
+        className="max-w-md px-10 mx-auto"
+      >
+        <Header />
+        <MainSection />
+      </div>
     </>
   )
 }
