@@ -1,6 +1,8 @@
 import FormCard from "../components/FormCard"
 import SubmitButton from "../components/SubmitButton"
 import MessageCard from "../components/MessageCard"
+import MessagesContainer from "../components/MessagesContainer"
+import messages from "../data/messages.json"
 
 const MainSection = () => {
   return (
@@ -9,12 +11,7 @@ const MainSection = () => {
         className="flex flex-col gap-10"
       >
         <FormCard />
-        <div
-          className="flex flex-col gap-10"
-        >
-          <MessageCard message="React is making me happy!" time="30 seconds" />
-          <MessageCard message="It's sunny!" time="15 minutes" />
-        </div>
+        <MessagesContainer messagesArray={messages.messages} />
       </div>
     </section>
   )

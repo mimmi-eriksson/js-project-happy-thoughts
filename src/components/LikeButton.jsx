@@ -8,7 +8,7 @@ const LikeButton = () => {
       className="flex items-center gap-2"
     >
       <button
-        className={`bg-[#eaeaea] ${likes > 0 && 'bg-[#ffadad]'} rounded-full p-2`}
+        className={`bg-[#eaeaea] ${likes > 0 && 'bg-[#ffadad]'} rounded-full p-2 cursor-pointer`}
         type="button"
         onClick={() => setLikes(likes + 1)}
       >

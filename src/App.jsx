@@ -6,7 +6,7 @@ const App = () => {
   return (
     <>
       <div
-        className="max-w-md px-4 mx-auto pb-20"
+        className="max-w-md min-h-screen px-4 mx-auto pb-15"
       >
         <Header />
         <MainSection />

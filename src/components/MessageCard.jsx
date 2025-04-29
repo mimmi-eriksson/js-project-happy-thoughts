@@ -1,6 +1,6 @@
 import LikeButton from "./LikeButton"
 
-const MessageCard = ({ message, time }) => {
+const MessageCard = ({ message, timeStamp }) => {
   return (
     <article
       className="bg-white border border-black border-solid shadow-[10px_10px] shadow-black p-5"
@@ -20,7 +20,7 @@ const MessageCard = ({ message, time }) => {
           <p
             className="text-[#818181] text-sm"
           >
-            {time} ago
+            {timeStamp}
           </p>
         </div>
       </div>

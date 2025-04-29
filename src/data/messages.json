@@ -1,0 +1,16 @@
+{
+  "messages": [
+    {
+      "message": "React is making me happy!",
+      "timeStamp": "30 seconds ago"
+    },
+    {
+      "message": "It's sunny today!",
+      "timeStamp": "15 minutes ago"
+    },
+    {
+      "message": "It's my birthday!",
+      "timeStamp": "46 minutes ago"
+    }
+  ]
+}

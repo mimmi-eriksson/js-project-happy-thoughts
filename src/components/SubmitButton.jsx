@@ -3,7 +3,7 @@
 const SubmitButton = () => {
   return (
     <button
-      className="bg-[#ffadad] rounded-full py-2 px-5"
+      className="bg-[#ffadad] rounded-full py-2 px-5 cursor-pointer"
       type="submit"
     >
       <p>
