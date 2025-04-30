@@ -1,17 +1,23 @@
+import { useState } from "react"
 import FormCard from "../components/FormCard"
-import SubmitButton from "../components/SubmitButton"
-import MessageCard from "../components/MessageCard"
 import MessagesContainer from "../components/MessagesContainer"
 import messages from "../data/messages.json"
 
 const MainSection = () => {
+  const [messagesList, setMessagesList] = useState(messages.messages)
+
+  const handleMessageSubmission = (message, timeStamp) => {
+    const messageObject = { id: messagesList.length, message: message, timeStamp: timeStamp }
+    setMessagesList(messagesList.concat(messageObject))
+  }
+
   return (
     <section>
       <div
         className="flex flex-col gap-10"
       >
-        <FormCard />
-        <MessagesContainer messagesArray={messages.messages} />
+        <FormCard onMessageSubmission={handleMessageSubmission} />
+        <MessagesContainer messagesArray={messagesList} />
       </div>
     </section>
   )

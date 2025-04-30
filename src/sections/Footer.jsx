@@ -9,7 +9,7 @@ const Footer = () => {
         className="flex flex-col items-center gap-1"
       >
         <p
-          className="text-sm text-[#ee5555]"
+          className="text-sm text-[#c44040]"
         >&copy; {new Date().getFullYear()} Mimmi Eriksson</p>
         <ul
           className="flex gap-2"
