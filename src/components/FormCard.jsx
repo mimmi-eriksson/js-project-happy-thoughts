@@ -4,6 +4,7 @@ import SubmitButton from "../components/SubmitButton"
 const FormCard = ({ onMessageSubmission }) => {
   const [message, setMessage] = useState("")
   const [characters, setCharacters] = useState(0)
+  const maxCharacters = 140
 
   const handleTyping = (event) => {
     setMessage(event.target.value)
@@ -33,11 +34,12 @@ const FormCard = ({ onMessageSubmission }) => {
           placeholder="Share your happy thought!"
           onChange={handleTyping}
           value={message}
+          maxLength={maxCharacters}
         />
         <p
-          className={`font-mono text-xs ${characters < 140 ? 'text-[#464646]' : 'text-[#ff0000]'} self-end -mt-2 mb-1`}
+          className={`font-mono text-xs ${characters < maxCharacters ? 'text-[#464646]' : 'text-[#ff0000]'} self-end -mt-2 mb-1`}
         >
-          {characters}/140 characters
+          {characters}/{maxCharacters} characters
         </p>
         <SubmitButton isActive={message.length > 0 ? true : false} />
       </form>

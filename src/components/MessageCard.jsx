@@ -1,7 +1,7 @@
 import { useState } from "react"
 import LikeButton from "./LikeButton"
 
-const MessageCard = ({ message, timeStamp }) => {
+const MessageCard = ({ message, time }) => {
   const [likes, setLikes] = useState(0)
 
   const handleLike = () => {
@@ -36,7 +36,7 @@ const MessageCard = ({ message, timeStamp }) => {
           <p
             className="text-[#707070] text-sm"
           >
-            {timeStamp}
+            {time}
           </p>
         </div>
       </div>
