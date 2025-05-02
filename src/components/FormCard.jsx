@@ -21,7 +21,7 @@ const FormCard = ({ onMessageSubmission }) => {
 
   return (
     <article
-      className="bg-[#eaeaea] border border-black border-solid shadow-[10px_10px] shadow-black p-5"
+      className="bg-(--color-secondary) border border-black border-solid shadow-[10px_10px] shadow-black p-5"
     >
       <form
         className="flex flex-col items-start gap-3"
