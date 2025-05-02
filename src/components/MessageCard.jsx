@@ -16,7 +16,7 @@ const MessageCard = ({ message, time }) => {
         className="flex flex-col justify-between gap-3"
       >
         <p
-          className="font-mono text-lg"
+          className="font-mono text-lg wrap-break-word"
         >
           {message}
         </p>
