@@ -1,8 +1,6 @@
 import MessageCard from "./MessageCard"
 
 const MessagesContainer = ({ messagesArray }) => {
-  //show latest message first
-  const sortedMessages = messagesArray.sort((a, b) => (b._id - a._id))
 
   const toElapsedTime = (timeStamp) => {
     const unixTimeStamp = Date.parse(timeStamp)
@@ -32,9 +30,9 @@ const MessagesContainer = ({ messagesArray }) => {
     <div
       className="flex flex-col gap-10"
     >
-      {sortedMessages.map((message) => {
+      {messagesArray.map((message) => {
         return (
-          <MessageCard key={message._id} message={message.message} time={toElapsedTime(message.createdAt)} hearts={message.hearts} />
+          <MessageCard key={message._id} id={message._id} message={message.message} time={toElapsedTime(message.createdAt)} hearts={message.hearts} />
         )
       })}
     </div>

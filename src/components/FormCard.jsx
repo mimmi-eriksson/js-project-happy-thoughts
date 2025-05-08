@@ -13,8 +13,7 @@ const FormCard = ({ onMessageSubmission }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    const timeStamp = new Date()
-    onMessageSubmission(message, timeStamp.toJSON())
+    onMessageSubmission(message)
     setMessage("")
     setCharacters(0)
   }
@@ -41,7 +40,7 @@ const FormCard = ({ onMessageSubmission }) => {
         >
           {characters}/{maxCharacters} characters
         </p>
-        <SubmitButton isActive={message.length > 0 ? true : false} />
+        <SubmitButton isActive={message.length > 4 ? true : false} />
       </form>
       <p></p>
     </article>

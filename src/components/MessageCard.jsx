@@ -1,11 +1,27 @@
 import { useState } from "react"
 import LikeButton from "./LikeButton"
 
-const MessageCard = ({ message, time, hearts }) => {
+const MessageCard = ({ id, message, time, hearts }) => {
   const [likes, setLikes] = useState(hearts)
+
+  const url = `https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts/${id}/like`
+
+  const postLike = async () => {
+    try {
+      const response = await fetch(url, { method: "POST" })
+      if (response.ok) {
+        // 
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      //
+    }
+  }
 
   const handleLike = () => {
     setLikes(likes + 1)
+    postLike()
   }
 
   return (
