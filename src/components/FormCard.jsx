@@ -5,6 +5,7 @@ const FormCard = ({ onMessageSubmission }) => {
   const [message, setMessage] = useState("")
   const [characters, setCharacters] = useState(0)
   const maxCharacters = 140
+  const minCharacters = 5
 
   const handleTyping = (event) => {
     setMessage(event.target.value)
@@ -40,9 +41,8 @@ const FormCard = ({ onMessageSubmission }) => {
         >
           {characters}/{maxCharacters} characters
         </p>
-        <SubmitButton isActive={message.length > 4 ? true : false} />
+        <SubmitButton isActive={message.length >= minCharacters ? true : false} />
       </form>
-      <p></p>
     </article>
   )
 }

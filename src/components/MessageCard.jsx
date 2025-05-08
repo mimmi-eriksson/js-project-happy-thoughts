@@ -1,27 +1,30 @@
-import { useState } from "react"
 import LikeButton from "./LikeButton"
 
-const MessageCard = ({ id, message, time, hearts }) => {
-  const [likes, setLikes] = useState(hearts)
+const MessageCard = ({ message, onLike }) => {
 
-  const url = `https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts/${id}/like`
+  // function to format timestamp
+  const toElapsedTime = (timeStamp) => {
+    const unixTimeStamp = Date.parse(timeStamp)
+    const now = Date.now()
+    const timeDiff = now - unixTimeStamp
 
-  const postLike = async () => {
-    try {
-      const response = await fetch(url, { method: "POST" })
-      if (response.ok) {
-        // 
-      }
-    } catch (error) {
-      console.log(error)
-    } finally {
-      //
-    }
-  }
+    const seconds = Math.floor(timeDiff / 1000)
+    if (seconds < 60) return `${seconds} second${seconds !== 1 ? "s" : ""} ago`
 
-  const handleLike = () => {
-    setLikes(likes + 1)
-    postLike()
+    const minutes = Math.floor(seconds / 60)
+    if (minutes < 60) return `${minutes} minute${minutes !== 1 ? "s" : ""} ago`
+
+    const hours = Math.floor(minutes / 60)
+    if (hours < 24) return `${hours} hour${hours !== 1 ? "s" : ""} ago`
+
+    const days = Math.floor(hours / 24)
+    if (days < 30) return `${days} day${days !== 1 ? "s" : ""} ago`
+
+    const months = Math.floor(days / 30)
+    if (months < 12) return `${months} month${months !== 1 ? "s" : ""} ago`
+
+    const years = Math.floor(days / 365)
+    return `${years} year${years !== 1 ? 's' : ''} ago`
   }
 
   return (
@@ -34,7 +37,7 @@ const MessageCard = ({ id, message, time, hearts }) => {
         <p
           className="font-mono text-lg wrap-break-word"
         >
-          {message}
+          {message.message}
         </p>
         <div
           className="flex justify-between items-center"
@@ -42,17 +45,17 @@ const MessageCard = ({ id, message, time, hearts }) => {
           <div
             className="flex items-center gap-2"
           >
-            <LikeButton likes={likes} onLike={handleLike} />
+            <LikeButton likes={message.hearts} onLike={onLike} />
             <p
               className="text-[#707070] text-sm"
             >
-              x {likes}
+              x {message.hearts}
             </p>
           </div>
           <p
             className="text-[#707070] text-sm"
           >
-            {time}
+            {toElapsedTime(message.createdAt)}
           </p>
         </div>
       </div>

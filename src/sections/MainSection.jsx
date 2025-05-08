@@ -20,8 +20,8 @@ const MainSection = () => {
         setMessages(data)
       }
     } catch (error) {
-      console.log(error)
       setError(true)
+      console.log(error)
     } finally {
       setLoading(false)
     }
@@ -29,7 +29,6 @@ const MainSection = () => {
 
   const postMessage = async (message) => {
     try {
-      setLoading(true)
       const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify({
@@ -42,15 +41,35 @@ const MainSection = () => {
         setMessages((messages) => [newMessage, ...messages])
       }
     } catch (error) {
-      console.log(error)
       setError(true)
+      console.log(error)
     } finally {
-      setLoading(false)
+      //
+    }
+  }
+
+  const likeMessage = async (id) => {
+    try {
+      const response = await fetch(`${url}/${id}/like`, { method: "POST" })
+      if (response.ok) {
+        const likedMessage = await response.json()
+        setMessages((messages) => messages.map(message =>
+          message._id === id ? { ...message, hearts: likedMessage.hearts } : message
+        ))
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      //
     }
   }
 
   const handleMessageSubmission = (message) => {
     postMessage(message)
+  }
+
+  const handleLike = (id) => {
+    likeMessage(id)
   }
 
   useEffect(() => {
@@ -62,7 +81,7 @@ const MainSection = () => {
       <FormCard onMessageSubmission={handleMessageSubmission} />
       {loading && <Loader />}
       {error && <Error />}
-      <MessagesContainer messagesArray={messages} />
+      <MessagesContainer messages={messages} onLike={handleLike} />
     </section>
   )
 }
