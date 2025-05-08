@@ -7,7 +7,7 @@ const MainSection = () => {
   const [messagesList, setMessagesList] = useState(messages.messages)
 
   const handleMessageSubmission = (message, timeStamp) => {
-    const messageObject = { id: messagesList.length, message: message, timeStamp: timeStamp }
+    const messageObject = { _id: messagesList.length, message: message, createdAt: timeStamp, hearts: 0 }
     setMessagesList(messagesList.concat(messageObject))
   }
 

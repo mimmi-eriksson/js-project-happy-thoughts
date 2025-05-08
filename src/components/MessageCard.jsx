@@ -1,8 +1,8 @@
 import { useState } from "react"
 import LikeButton from "./LikeButton"
 
-const MessageCard = ({ message, time }) => {
-  const [likes, setLikes] = useState(0)
+const MessageCard = ({ message, time, hearts }) => {
+  const [likes, setLikes] = useState(hearts)
 
   const handleLike = () => {
     setLikes(likes + 1)

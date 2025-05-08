@@ -1,14 +1,25 @@
 {
   "messages": [
     {
-      "id": 0,
+      "_id": 0,
       "message": "React is making me happy!",
-      "timeStamp": 1746007624
+      "hearts": 0,
+      "createdAt": "2019-11-21T11:15:20.888Z",
+      "__v": 0
     },
     {
-      "id": 1,
+      "_id": 1,
       "message": "It's sunny today!",
-      "timeStamp": 1746009144
+      "hearts": 1,
+      "createdAt": "2025-05-07T11:15:20.888Z",
+      "__v": 0
+    },
+    {
+      "_id": 2,
+      "message": "I'm happy because we're starting a fun new project",
+      "hearts": 0,
+      "createdAt": "2025-05-08T07:15:20.888Z",
+      "__v": 0
     }
   ]
 }

@@ -13,8 +13,8 @@ const FormCard = ({ onMessageSubmission }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    const unixTimeStamp = Math.floor(new Date() / 1000)
-    onMessageSubmission(message, unixTimeStamp)
+    const timeStamp = new Date()
+    onMessageSubmission(message, timeStamp.toJSON())
     setMessage("")
     setCharacters(0)
   }

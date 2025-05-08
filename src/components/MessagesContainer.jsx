@@ -2,11 +2,12 @@ import MessageCard from "./MessageCard"
 
 const MessagesContainer = ({ messagesArray }) => {
   //show latest message first
-  const sortedMessages = messagesArray.sort((a, b) => (b.id - a.id))
+  const sortedMessages = messagesArray.sort((a, b) => (b._id - a._id))
 
   const toElapsedTime = (timeStamp) => {
+    const unixTimeStamp = Date.parse(timeStamp)
     const now = Date.now()
-    const timeDiff = now - timeStamp * 1000 //difference in milliseconds
+    const timeDiff = now - unixTimeStamp
 
     const seconds = Math.floor(timeDiff / 1000)
     if (seconds < 60) return `${seconds} second${seconds !== 1 ? "s" : ""} ago`
@@ -33,7 +34,7 @@ const MessagesContainer = ({ messagesArray }) => {
     >
       {sortedMessages.map((message) => {
         return (
-          <MessageCard key={message.id} message={message.message} time={toElapsedTime(message.timeStamp)} />
+          <MessageCard key={message._id} message={message.message} time={toElapsedTime(message.createdAt)} hearts={message.hearts} />
         )
       })}
     </div>
