@@ -29,7 +29,7 @@ const MessageCard = ({ message, onLike }) => {
 
   return (
     <article
-      className="bg-white border border-black border-solid shadow-[10px_10px] shadow-black p-5"
+      className="bg-white border border-black border-solid shadow-[10px_10px] shadow-black p-5 animate-fadeIn"
     >
       <div
         className="flex flex-col justify-between gap-3"

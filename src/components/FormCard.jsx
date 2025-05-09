@@ -30,7 +30,7 @@ const FormCard = ({ onMessageSubmission }) => {
         <label htmlFor="thoughtInput">What's making you happy right now?</label>
         <textarea
           id="thoughtInput"
-          className="bg-white border border-gray-400 w-full p-2 font-mono resize-none"
+          className="bg-white border border-gray-400 w-full p-2 font-mono resize-none focus:outline-(--color-accent)"
           placeholder="Share your happy thought!"
           onChange={handleTyping}
           value={message}

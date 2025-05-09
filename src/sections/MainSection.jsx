@@ -7,7 +7,6 @@ import Error from "../components/Error"
 const MainSection = () => {
   const [messages, setMessages] = useState([])
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(false)
 
   const url = "https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts"
 
@@ -20,8 +19,7 @@ const MainSection = () => {
         setMessages(data)
       }
     } catch (error) {
-      setError(true)
-      console.log(error)
+      console.log('error: ', error.message)
     } finally {
       setLoading(false)
     }
@@ -41,8 +39,7 @@ const MainSection = () => {
         setMessages((messages) => [newMessage, ...messages])
       }
     } catch (error) {
-      setError(true)
-      console.log(error)
+      console.log(error.message)
     } finally {
       //
     }
@@ -80,7 +77,6 @@ const MainSection = () => {
     <section className="flex flex-col gap-10 pb-15 min-h-screen">
       <FormCard onMessageSubmission={handleMessageSubmission} />
       {loading && <Loader />}
-      {error && <Error />}
       <MessagesContainer messages={messages} onLike={handleLike} />
     </section>
   )
