@@ -7,11 +7,13 @@ import Error from "../components/Error"
 const MainSection = () => {
   const [messages, setMessages] = useState([])
   const [loading, setLoading] = useState(false)
+  const [errorMessage, setErrorMessage] = useState("")
 
   const url = "https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts"
 
   const fetchMessages = async () => {
     try {
+      setErrorMessage("")
       setLoading(true)
       const response = await fetch(url)
       if (response.ok) {
@@ -19,7 +21,7 @@ const MainSection = () => {
         setMessages(data)
       }
     } catch (error) {
-      console.log('error: ', error.message)
+      setErrorMessage(`An error occured when loading thoughts: ${error.message}`)
     } finally {
       setLoading(false)
     }
@@ -27,6 +29,7 @@ const MainSection = () => {
 
   const postMessage = async (message) => {
     try {
+      setErrorMessage("")
       const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify({
@@ -39,7 +42,7 @@ const MainSection = () => {
         setMessages((messages) => [newMessage, ...messages])
       }
     } catch (error) {
-      console.log(error.message)
+      setErrorMessage(`An error occured when posting thought: ${error.message}`)
     } finally {
       //
     }
@@ -47,6 +50,7 @@ const MainSection = () => {
 
   const likeMessage = async (id) => {
     try {
+      setErrorMessage("")
       const response = await fetch(`${url}/${id}/like`, { method: "POST" })
       if (response.ok) {
         const likedMessage = await response.json()
@@ -55,7 +59,7 @@ const MainSection = () => {
         ))
       }
     } catch (error) {
-      console.log(error)
+      setErrorMessage(`An error occured when liking thought: ${error.message}`)
     } finally {
       //
     }
@@ -77,6 +81,7 @@ const MainSection = () => {
     <section className="flex flex-col gap-10 pb-15 min-h-screen">
       <FormCard onMessageSubmission={handleMessageSubmission} />
       {loading && <Loader />}
+      {errorMessage && <Error text={errorMessage} />}
       <MessagesContainer messages={messages} onLike={handleLike} />
     </section>
   )

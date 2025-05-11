@@ -1,8 +1,8 @@
-const Error = () => {
+const Error = ({ text }) => {
   return (
-    <div>
-      <h2>Error</h2>
-      <p>An error occured...</p>
+    <div className="bg-white border border-black border-solid shadow-[10px_10px] shadow-black p-5 text-center text-red-500">
+      <h2 className="text-lg font-semibold">! Error !</h2>
+      <p>{text}</p>
     </div>
   )
 }
