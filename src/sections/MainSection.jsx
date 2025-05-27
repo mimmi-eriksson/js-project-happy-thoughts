@@ -9,7 +9,7 @@ const MainSection = () => {
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
 
-  const url = "https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts"
+  const url = "https://happy-thoughts-api-4ful.onrender.com/thoughts"
 
   const fetchMessages = async () => {
     try {
