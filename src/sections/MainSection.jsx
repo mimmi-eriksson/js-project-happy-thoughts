@@ -1,15 +1,17 @@
-import { useState, useEffect } from "react"
-import FormCard from "../components/FormCard"
-import MessagesContainer from "../components/MessagesContainer"
-import Loader from "../components/Loader"
+import { useEffect, useState } from "react"
+
 import Error from "../components/Error"
+import FormCard from "../components/FormCard"
+import Loader from "../components/Loader"
+import MessagesContainer from "../components/MessagesContainer"
 
 const MainSection = () => {
   const [messages, setMessages] = useState([])
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
 
-  const url = "https://happy-thoughts-api-4ful.onrender.com/thoughts"
+  // const url = "https://think-happy-api.onrender.com/thoughts" // deployed api
+  const url = "http://localhost:8080/thoughts" // local api
 
   const fetchMessages = async () => {
     try {
@@ -18,7 +20,7 @@ const MainSection = () => {
       const response = await fetch(url)
       if (response.ok) {
         const data = await response.json()
-        setMessages(data)
+        setMessages(data.response)
       }
     } catch (error) {
       setErrorMessage(`An error occured when loading thoughts: ${error.message}`)
@@ -39,7 +41,7 @@ const MainSection = () => {
       })
       if (response.ok) {
         const newMessage = await response.json()
-        setMessages((messages) => [newMessage, ...messages])
+        setMessages((messages) => [newMessage.response, ...messages])
       }
     } catch (error) {
       setErrorMessage(`An error occured when posting thought: ${error.message}`)
@@ -51,11 +53,11 @@ const MainSection = () => {
   const likeMessage = async (id) => {
     try {
       setErrorMessage("")
-      const response = await fetch(`${url}/${id}/like`, { method: "POST" })
+      const response = await fetch(`${url}/${id}/like`, { method: "PATCH" })
       if (response.ok) {
         const likedMessage = await response.json()
         setMessages((messages) => messages.map(message =>
-          message._id === id ? { ...message, hearts: likedMessage.hearts } : message
+          message._id === id ? { ...message, hearts: likedMessage.response.hearts } : message
         ))
       }
     } catch (error) {
