@@ -6,7 +6,7 @@ const ControlsCard = () => {
       <form className="flex gap-2 justify-between">
         <div className="flex gap-1">
           <span>
-            <input type="radio" name="sortBy" id="recent" value="recent" checked />
+            <input type="radio" name="sortBy" id="recent" value="recent" defaultChecked />
             <label htmlFor="recent">Recent thoughts</label>
           </span>
           <span>
@@ -16,7 +16,7 @@ const ControlsCard = () => {
         </div>
 
         <div className="flex gap-1">
-          <label for="tags">Filter on tag:</label>
+          <label htmlFor="tags">Filter on tag:</label>
           <select name="tags" id="tags">
             <option value="all">All</option>
             <option value="travel">Travel</option>

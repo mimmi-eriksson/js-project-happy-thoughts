@@ -1,6 +1,6 @@
 import MessageCard from "./MessageCard"
 
-const MessagesContainer = ({ messages, onLike }) => {
+const MessagesContainer = ({ messages, onLike, onDelete, onEdit }) => {
   return (
     <div
       className="flex flex-col gap-10"
@@ -10,7 +10,10 @@ const MessagesContainer = ({ messages, onLike }) => {
           <MessageCard
             key={message._id}
             message={message}
-            onLike={() => onLike(message._id)} />
+            onLike={() => onLike(message._id)}
+            onDelete={() => onDelete(message._id)}
+            onEdit={onEdit}
+          />
         )
       })}
     </div>

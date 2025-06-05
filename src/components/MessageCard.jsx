@@ -1,8 +1,13 @@
+import { useState } from "react"
 import EditButton from "./EditButton"
 import LikeButton from "./LikeButton"
 import Tag from "./Tag"
+import SubmitButton from "./SubmitButton"
 
-const MessageCard = ({ message, onLike }) => {
+const MessageCard = ({ message, onLike, onDelete, onEdit }) => {
+
+  const [editedMessage, setEditedMessage] = useState("")
+  const [showInput, setShowInput] = useState(false)
 
   // function to format timestamp
   const toElapsedTime = (timeStamp) => {
@@ -29,6 +34,21 @@ const MessageCard = ({ message, onLike }) => {
     return `${years} year${years !== 1 ? 's' : ''} ago`
   }
 
+  const handleTyping = (event) => {
+    setEditedMessage(event.target.value)
+  }
+
+  const onSubmitEditedMessage = (event) => {
+    event.preventDefault()
+    onEdit(message._id, editedMessage)
+    setEditedMessage("")
+    setShowInput(false)
+  }
+
+  const onEditMessage = () => {
+    setShowInput(true)
+  }
+
   return (
     <article
       className="bg-white border border-black border-solid shadow-[10px_10px] shadow-black p-5 animate-fadeIn"
@@ -48,8 +68,8 @@ const MessageCard = ({ message, onLike }) => {
               })}
             </ul>
             <div className="flex gap-3">
-              <EditButton icon={"🖋️"} />
-              <EditButton icon={"🗑️"} />
+              <EditButton icon={"🖋️"} onClick={onEditMessage} />
+              <EditButton icon={"🗑️"} onClick={onDelete} />
             </div>
           </div>
           <p
@@ -57,6 +77,18 @@ const MessageCard = ({ message, onLike }) => {
           >
             {message.message}
           </p>
+          {showInput &&
+            <form onSubmit={onSubmitEditedMessage}>
+              <textarea
+                id="thoughtInput"
+                className="bg-white border border-gray-400 w-full p-2 font-mono resize-none focus:outline-(--color-accent)"
+                placeholder={message.message}
+                onChange={handleTyping}
+                value={editedMessage}
+              />
+              <SubmitButton isActive="true" />
+            </form>
+          }
         </div>
         <div
           className="flex justify-between items-center"

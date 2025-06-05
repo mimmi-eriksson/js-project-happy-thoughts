@@ -68,12 +68,61 @@ const MainSection = () => {
     }
   }
 
+  const deleteMessage = async (id) => {
+    try {
+      setErrorMessage("")
+      const response = await fetch(`${url}/${id}`, { method: "DELETE" })
+      if (response.ok) {
+        const deletedMessage = await response.json()
+        setMessages((messages) => messages.filter(message =>
+          message._id !== id
+        ))
+      }
+    } catch (error) {
+      setErrorMessage(`An error occured when deleting thought: ${error.message}`)
+    } finally {
+      //
+    }
+  }
+
+  const editMessage = async (id, newMessage) => {
+    try {
+      setErrorMessage("")
+      const response = await fetch(`${url}/${id}`, {
+        method: "PATCH",
+        body: JSON.stringify({
+          message: newMessage,
+        })
+      })
+      if (response.ok) {
+        const editedMessage = await response.json()
+        console.log(editedMessage)
+        setMessages((messages) => messages.map(message =>
+          message._id === id ? { ...message, message: editedMessage.response.message } : message
+        ))
+      }
+    } catch (error) {
+      setErrorMessage(`An error occured when deleting thought: ${error.message}`)
+    } finally {
+      //
+    }
+  }
+
   const handleMessageSubmission = (message) => {
     postMessage(message)
   }
 
   const handleLike = (id) => {
     likeMessage(id)
+  }
+
+  const handleDelete = (id) => {
+    deleteMessage(id)
+  }
+
+  const handleEdit = (id, newMessage) => {
+    console.log(id, newMessage)
+    editMessage(id, newMessage)
   }
 
   useEffect(() => {
@@ -86,7 +135,7 @@ const MainSection = () => {
       <ControlsCard />
       {loading && <Loader />}
       {errorMessage && <Error text={errorMessage} />}
-      <MessagesContainer messages={messages} onLike={handleLike} />
+      <MessagesContainer messages={messages} onLike={handleLike} onDelete={handleDelete} onEdit={handleEdit} />
     </section>
   )
 }
