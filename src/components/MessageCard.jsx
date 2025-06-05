@@ -1,4 +1,6 @@
+import EditButton from "./EditButton"
 import LikeButton from "./LikeButton"
+import Tag from "./Tag"
 
 const MessageCard = ({ message, onLike }) => {
 
@@ -32,13 +34,30 @@ const MessageCard = ({ message, onLike }) => {
       className="bg-white border border-black border-solid shadow-[10px_10px] shadow-black p-5 animate-fadeIn"
     >
       <div
-        className="flex flex-col justify-between gap-3"
+        className="flex flex-col justify-between gap-6"
       >
-        <p
-          className="font-mono text-lg wrap-break-word"
+        <div
+          className="flex flex-col gap-5"
         >
-          {message.message}
-        </p>
+          <div className="flex justify-between items-center">
+            <ul
+              className="flex gap-3"
+            >
+              {message.tags.map(tag => {
+                return <Tag key={tag} tag={tag} />
+              })}
+            </ul>
+            <div className="flex gap-3">
+              <EditButton icon={"🖋️"} />
+              <EditButton icon={"🗑️"} />
+            </div>
+          </div>
+          <p
+            className="font-mono text-lg wrap-break-word"
+          >
+            {message.message}
+          </p>
+        </div>
         <div
           className="flex justify-between items-center"
         >

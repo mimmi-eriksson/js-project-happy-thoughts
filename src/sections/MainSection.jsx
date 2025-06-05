@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 
 import Error from "../components/Error"
 import FormCard from "../components/FormCard"
+import ControlsCard from "../components/ControlsCard"
 import Loader from "../components/Loader"
 import MessagesContainer from "../components/MessagesContainer"
 
@@ -82,6 +83,7 @@ const MainSection = () => {
   return (
     <section className="flex flex-col gap-10 pb-15 min-h-screen">
       <FormCard onMessageSubmission={handleMessageSubmission} />
+      <ControlsCard />
       {loading && <Loader />}
       {errorMessage && <Error text={errorMessage} />}
       <MessagesContainer messages={messages} onLike={handleLike} />
