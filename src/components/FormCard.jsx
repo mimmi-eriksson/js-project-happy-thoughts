@@ -16,7 +16,11 @@ const FormCard = ({ onMessageSubmission }) => {
   }
 
   const handleSelectTag = (tag) => {
-    setTags((tags) => [tag, ...tags])
+    if (tags.includes(tag)) {
+      setTags(tags.filter(t => t !== tag))
+    } else {
+      setTags((tags) => [...tags, tag])
+    }
   }
 
   const handleSubmit = (event) => {
