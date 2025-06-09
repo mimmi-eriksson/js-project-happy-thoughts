@@ -1,21 +1,29 @@
 import { useState } from "react"
 import SubmitButton from "../components/SubmitButton"
+import Tag from "./Tag"
 
 const FormCard = ({ onMessageSubmission }) => {
   const [message, setMessage] = useState("")
   const [characters, setCharacters] = useState(0)
+  const [tags, setTags] = useState([])
   const maxCharacters = 140
   const minCharacters = 5
+  const tagsOptions = ["travel", "food", "family", "friends", "humor", "nature", "wellness", "home", "entertainment", "work", "other"]
 
   const handleTyping = (event) => {
     setMessage(event.target.value)
     setCharacters(event.target.value.length)
   }
 
+  const handleSelectTag = (tag) => {
+    setTags((tags) => [tag, ...tags])
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault()
-    onMessageSubmission(message)
+    onMessageSubmission(message, tags)
     setMessage("")
+    setTags([])
     setCharacters(0)
   }
 
@@ -41,6 +49,18 @@ const FormCard = ({ onMessageSubmission }) => {
         >
           {characters}/{maxCharacters} characters
         </p>
+        {characters > minCharacters && (
+          <div className="flex flex-col gap-1">
+            <p className="text-sm">Select categories:</p>
+            <ul className="flex flex-wrap gap-1 cursor-pointer">
+              {tagsOptions.map(tag => {
+                return (
+                  <Tag key={tag} tag={tag} onSelect={handleSelectTag} />
+                )
+              })}
+            </ul>
+          </div>
+        )}
         <SubmitButton text="❤️ Send Happy Thought ❤️" isActive={message.length >= minCharacters ? true : false} />
       </form>
     </article>

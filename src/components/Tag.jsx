@@ -1,9 +1,20 @@
-const Tag = ({ tag }) => {
+import { useState } from "react"
+
+const Tag = ({ tag, onSelect }) => {
+  const [selected, setSelected] = useState(false)
+
+  const handleSelect = (event) => {
+    event.preventDefault()
+    setSelected(!selected)
+    onSelect(tag)
+  }
   return (
     <li
-      className="px-3 py-2 bg-[#ffeded] text-xs"
+      className={`px-3 py-2 text-xs ${selected ? "bg-(--color-primary)" : "bg-[#ffeded]"}`}
     >
-      {tag}
+      <button type="button" onClick={handleSelect} className="cursor-pointer">
+        {tag}
+      </button>
     </li>
   )
 }

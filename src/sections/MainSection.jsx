@@ -30,13 +30,14 @@ const MainSection = () => {
     }
   }
 
-  const postMessage = async (message) => {
+  const postMessage = async (message, tags) => {
     try {
       setErrorMessage("")
       const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify({
           message: message,
+          tags: tags
         }),
         headers: { "Content-Type": "application/json" }
       })
@@ -108,8 +109,8 @@ const MainSection = () => {
     }
   }
 
-  const handleMessageSubmission = (message) => {
-    postMessage(message)
+  const handleMessageSubmission = (message, tags) => {
+    postMessage(message, tags)
   }
 
   const handleLike = (id) => {
