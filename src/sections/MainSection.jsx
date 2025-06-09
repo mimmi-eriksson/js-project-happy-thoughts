@@ -11,8 +11,8 @@ const MainSection = () => {
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
 
-  // const url = "https://think-happy-api.onrender.com/thoughts" // deployed api
-  const url = "http://localhost:8080/thoughts" // local api
+  const url = "https://think-happy-api.onrender.com/thoughts" // deployed api
+  // const url = "http://localhost:8080/thoughts" // local api
 
   const fetchMessages = async () => {
     try {
