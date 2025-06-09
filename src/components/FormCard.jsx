@@ -41,7 +41,7 @@ const FormCard = ({ onMessageSubmission }) => {
         >
           {characters}/{maxCharacters} characters
         </p>
-        <SubmitButton isActive={message.length >= minCharacters ? true : false} />
+        <SubmitButton text="❤️ Send Happy Thought ❤️" isActive={message.length >= minCharacters ? true : false} />
       </form>
     </article>
   )

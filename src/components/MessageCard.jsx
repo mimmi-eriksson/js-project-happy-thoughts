@@ -1,13 +1,16 @@
 import { useState } from "react"
-import EditButton from "./EditButton"
+import MessageCardButton from "./MessageCardButton"
 import LikeButton from "./LikeButton"
 import Tag from "./Tag"
 import SubmitButton from "./SubmitButton"
+import ReturnButton from "./ReturnButton"
 
 const MessageCard = ({ message, onLike, onDelete, onEdit }) => {
 
   const [editedMessage, setEditedMessage] = useState("")
   const [showInput, setShowInput] = useState(false)
+  const maxCharacters = 140
+  const minCharacters = 5
 
   // function to format timestamp
   const toElapsedTime = (timeStamp) => {
@@ -48,6 +51,10 @@ const MessageCard = ({ message, onLike, onDelete, onEdit }) => {
   const onEditMessage = () => {
     setShowInput(true)
   }
+  const onReturn = () => {
+    setEditedMessage("")
+    setShowInput(false)
+  }
 
   return (
     <article
@@ -68,8 +75,8 @@ const MessageCard = ({ message, onLike, onDelete, onEdit }) => {
               })}
             </ul>
             <div className="flex gap-3">
-              <EditButton icon={"🖋️"} onClick={onEditMessage} />
-              <EditButton icon={"🗑️"} onClick={onDelete} />
+              <MessageCardButton icon={"🖋️"} onClick={onEditMessage} />
+              <MessageCardButton icon={"🗑️"} onClick={onDelete} />
             </div>
           </div>
           <p
@@ -85,8 +92,13 @@ const MessageCard = ({ message, onLike, onDelete, onEdit }) => {
                 placeholder={message.message}
                 onChange={handleTyping}
                 value={editedMessage}
+                maxLength={maxCharacters}
               />
-              <SubmitButton isActive="true" />
+              <div className="flex gap-2 justify-between">
+                <SubmitButton text="❤️ Edit Thought ❤️" isActive={editedMessage.length >= minCharacters ? true : false} />
+                <ReturnButton onClick={onReturn} />
+              </div>
+
             </form>
           }
         </div>

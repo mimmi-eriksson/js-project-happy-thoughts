@@ -92,17 +92,17 @@ const MainSection = () => {
         method: "PATCH",
         body: JSON.stringify({
           message: newMessage,
-        })
+        }),
+        headers: { "Content-Type": "application/json" }
       })
       if (response.ok) {
         const editedMessage = await response.json()
-        console.log(editedMessage)
         setMessages((messages) => messages.map(message =>
           message._id === id ? { ...message, message: editedMessage.response.message } : message
         ))
       }
     } catch (error) {
-      setErrorMessage(`An error occured when deleting thought: ${error.message}`)
+      setErrorMessage(`An error occured when editing thought: ${error.message}`)
     } finally {
       //
     }
@@ -121,7 +121,6 @@ const MainSection = () => {
   }
 
   const handleEdit = (id, newMessage) => {
-    console.log(id, newMessage)
     editMessage(id, newMessage)
   }
 

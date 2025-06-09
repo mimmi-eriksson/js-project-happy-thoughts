@@ -1,4 +1,4 @@
-const EditButton = ({ icon, onClick }) => {
+const MessageCardButton = ({ icon, onClick }) => {
   return (
     <button
       className="bg-(--color-secondary) hover:bg-[#ffadad] rounded-full p-2 text-sm cursor-pointer"
@@ -10,4 +10,4 @@ const EditButton = ({ icon, onClick }) => {
   )
 }
 
-export default EditButton
+export default MessageCardButton

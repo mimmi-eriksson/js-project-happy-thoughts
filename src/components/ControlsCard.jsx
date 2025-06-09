@@ -21,7 +21,15 @@ const ControlsCard = () => {
             <option value="all">All</option>
             <option value="travel">Travel</option>
             <option value="food">Food</option>
+            <option value="family">Family</option>
+            <option value="friends">Friends</option>
+            <option value="humor">Humor</option>
             <option value="nature">Nature</option>
+            <option value="wellness">Wellness</option>
+            <option value="home">Home</option>
+            <option value="entertainment">Entertainment</option>
+            <option value="work">Work</option>
+            <option value="other">Other</option>
           </select>
         </div>
       </form>
