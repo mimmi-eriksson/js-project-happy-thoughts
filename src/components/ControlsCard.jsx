@@ -1,35 +1,33 @@
+import SortOption from "./SortOption"
+import FilterOption from "./FilterOption"
+
 const ControlsCard = () => {
   return (
     <article
-      className="text-sm"
+      className="px-5 text-sm"
     >
-      <form className="flex gap-2 justify-between">
-        <div className="flex gap-1">
-          <span>
-            <input type="radio" name="sortBy" id="recent" value="recent" defaultChecked />
-            <label htmlFor="recent">Recent thoughts</label>
-          </span>
-          <span>
-            <input type="radio" name="sortBy" id="popular" value="popular" />
-            <label htmlFor="popular">Popular thoughts</label>
-          </span>
+      <form className="flex flex-col gap-3">
+        <div className="flex items-center justify-between">
+          <p>Sort on:</p>
+          <SortOption radioGroup="sortBy" id="recent" label="Recent thoughts" isChecked={true} />
+          <SortOption radioGroup="sortBy" id="popular" label="Popular thoughts" isChecked={false} />
         </div>
 
-        <div className="flex gap-1">
-          <label htmlFor="tags">Filter on tag:</label>
-          <select name="tags" id="tags">
-            <option value="all">All</option>
-            <option value="travel">Travel</option>
-            <option value="food">Food</option>
-            <option value="family">Family</option>
-            <option value="friends">Friends</option>
-            <option value="humor">Humor</option>
-            <option value="nature">Nature</option>
-            <option value="wellness">Wellness</option>
-            <option value="home">Home</option>
-            <option value="entertainment">Entertainment</option>
-            <option value="work">Work</option>
-            <option value="other">Other</option>
+        <div className="flex items-center gap-2">
+          <label className="w-25" htmlFor="tags">Filter on:</label>
+          <select className="bg-[#ffeded] border border-(--color-accent) rounded-lg focus:outline-2 focus:outline-(--color-primary) w-full p-1 cursor-pointer" name="tags" id="tags">
+            <FilterOption value="all" />
+            <FilterOption value="travel" />
+            <FilterOption value="food" />
+            <FilterOption value="family" />
+            <FilterOption value="friends" />
+            <FilterOption value="humor" />
+            <FilterOption value="nature" />
+            <FilterOption value="wellness" />
+            <FilterOption value="home" />
+            <FilterOption value="entertainment" />
+            <FilterOption value="work" />
+            <FilterOption value="other" />
           </select>
         </div>
       </form>
