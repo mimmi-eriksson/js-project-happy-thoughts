@@ -3,7 +3,7 @@ import MessageCardButton from "./MessageCardButton"
 import LikeButton from "./LikeButton"
 import Tag from "./Tag"
 import SubmitButton from "./SubmitButton"
-import ReturnButton from "./ReturnButton"
+import CancelButton from "./CancelButton"
 
 const MessageCard = ({ message, onLike, onDelete, onEdit }) => {
 
@@ -41,6 +41,13 @@ const MessageCard = ({ message, onLike, onDelete, onEdit }) => {
     setEditedMessage(event.target.value)
   }
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault()
+      onSubmitEditedMessage(event)
+    }
+  }
+
   const onSubmitEditedMessage = (event) => {
     event.preventDefault()
     onEdit(message._id, editedMessage)
@@ -51,7 +58,7 @@ const MessageCard = ({ message, onLike, onDelete, onEdit }) => {
   const onEditMessage = () => {
     setShowInput(true)
   }
-  const onReturn = () => {
+  const onCancel = () => {
     setEditedMessage("")
     setShowInput(false)
   }
@@ -91,14 +98,14 @@ const MessageCard = ({ message, onLike, onDelete, onEdit }) => {
                 className="bg-white border border-gray-400 w-full p-2 font-mono resize-none focus:outline-(--color-accent)"
                 placeholder={message.message}
                 onChange={handleTyping}
+                onKeyDown={handleKeyDown}
                 value={editedMessage}
                 maxLength={maxCharacters}
               />
-              <div className="flex gap-2 justify-between">
+              <div className="flex justify-between">
                 <SubmitButton text="❤️ Edit Thought ❤️" isActive={editedMessage.length >= minCharacters ? true : false} />
-                <ReturnButton onClick={onReturn} />
+                <CancelButton onClick={onCancel} />
               </div>
-
             </form>
           }
         </div>

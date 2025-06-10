@@ -31,6 +31,13 @@ const FormCard = ({ onMessageSubmission }) => {
     setCharacters(0)
   }
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault()
+      handleSubmit(event)
+    }
+  }
+
   return (
     <article
       className="bg-(--color-secondary) border border-black border-solid shadow-[10px_10px] shadow-black p-5"
@@ -45,6 +52,7 @@ const FormCard = ({ onMessageSubmission }) => {
           className="bg-white border border-gray-400 w-full p-2 font-mono resize-none focus:outline-(--color-accent)"
           placeholder="Share your happy thought!"
           onChange={handleTyping}
+          onKeyDown={handleKeyDown}
           value={message}
           maxLength={maxCharacters}
         />

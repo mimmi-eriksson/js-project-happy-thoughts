@@ -31,13 +31,17 @@ const MainSection = () => {
   }
 
   const postMessage = async (message, tags) => {
+    let tagsArray = tags
+    if (tags.length === 0) {
+      tagsArray = ["other"]
+    }
     try {
       setErrorMessage("")
       const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify({
           message: message,
-          tags: tags
+          tags: tagsArray
         }),
         headers: { "Content-Type": "application/json" }
       })

@@ -1,6 +1,10 @@
+import { useState } from "react"
 import MessageCard from "./MessageCard"
 
+
 const MessagesContainer = ({ messages, onLike, onDelete, onEdit }) => {
+  const [page, setPage] = useState(1)
+
   return (
     <div
       className="flex flex-col gap-10"
@@ -16,6 +20,7 @@ const MessagesContainer = ({ messages, onLike, onDelete, onEdit }) => {
           />
         )
       })}
+
     </div>
   )
 }
