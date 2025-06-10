@@ -179,7 +179,7 @@ const MainSection = () => {
       <ControlsCard onSort={handleSorting} onFilter={handleFilter} />
       {loading && <Loader />}
       {errorMessage && <Error text={errorMessage} />}
-      <MessagesContainer messages={messages} page={page} maxPages={maxPages} onChangePage={handleChangePage} onLike={handleLike} onDelete={handleDelete} onEdit={handleEdit} />
+      {!errorMessage && <MessagesContainer messages={messages} page={page} maxPages={maxPages} onChangePage={handleChangePage} onLike={handleLike} onDelete={handleDelete} onEdit={handleEdit} />}
     </section>
   )
 }
