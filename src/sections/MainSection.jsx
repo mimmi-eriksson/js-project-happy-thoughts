@@ -13,7 +13,9 @@ const MainSection = () => {
 
   const [url, setUrl] = useState("")
 
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState()
+  const [maxPages, setMaxPages] = useState(1)
+
   const [sortBy, setSortBy] = useState("")
   const [filterOn, setFilterOn] = useState("")
 
@@ -23,12 +25,16 @@ const MainSection = () => {
     if (!page || page < 1) {
       setPage(1)
     }
-    newUrl = `https://think-happy-api.onrender.com/thoughts?page=${page}`
+    newUrl += `?page=${page}`
     if (sortBy) {
-      newUrl += `&sort=${sortBy}`
+      newUrl += `&sort_by=-${sortBy}`
     }
     if (filterOn) {
-      newUrl += `&tags=${filterOn}`
+      if (filterOn === "all") {
+        newUrl += ""
+      } else {
+        newUrl += `&tag=${filterOn}`
+      }
     }
     setUrl(newUrl)
   }, [page, sortBy, filterOn])
@@ -41,7 +47,8 @@ const MainSection = () => {
         const response = await fetch(url)
         if (response.ok) {
           const data = await response.json()
-          setMessages(data.response)
+          setMessages(data.response.data)
+          setMaxPages(Math.ceil(data.response.totalCount / data.response.limit))
         }
       } catch (error) {
         setErrorMessage(`An error occured when loading thoughts: ${error.message}`)
@@ -151,17 +158,28 @@ const MainSection = () => {
     editMessage(id, newMessage)
   }
 
-  const handlePageChange = (newPage) => {
+  const handleChangePage = (newPage) => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
     setPage(newPage)
+  }
+
+  const handleSorting = (sorting) => {
+    setPage(1)
+    setSortBy(sorting)
+  }
+
+  const handleFilter = (filter) => {
+    setPage(1)
+    setFilterOn(filter)
   }
 
   return (
     <section className="flex flex-col gap-10 pb-15 min-h-screen">
       <FormCard onMessageSubmission={handleMessageSubmission} />
-      <ControlsCard />
+      <ControlsCard onSort={handleSorting} onFilter={handleFilter} />
       {loading && <Loader />}
       {errorMessage && <Error text={errorMessage} />}
-      <MessagesContainer messages={messages} page={page} onChangePage={handlePageChange} onLike={handleLike} onDelete={handleDelete} onEdit={handleEdit} />
+      <MessagesContainer messages={messages} page={page} maxPages={maxPages} onChangePage={handleChangePage} onLike={handleLike} onDelete={handleDelete} onEdit={handleEdit} />
     </section>
   )
 }

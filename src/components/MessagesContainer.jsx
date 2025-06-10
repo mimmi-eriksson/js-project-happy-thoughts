@@ -1,4 +1,5 @@
 import MessageCard from "./MessageCard"
+import PageSelector from "./PageSelector"
 
 const MessagesContainer = ({ messages, page, maxPages, onChangePage, onLike, onDelete, onEdit }) => {
 
@@ -17,26 +18,7 @@ const MessagesContainer = ({ messages, page, maxPages, onChangePage, onLike, onD
           />
         )
       })}
-      <div className="flex gap-2 items-center self-center">
-        <button
-          className="cursor-pointer"
-          type="button"
-          onClick={() => onChangePage(page - 1)}
-          disabled={page <= 1}
-        >
-          Previous
-        </button>
-        <p>Page {page}</p>
-        <button
-          className="cursor-pointer"
-          type="button"
-          onClick={() => onChangePage(page + 1)}
-          disabled={page === maxPages}
-        >
-          Next
-        </button>
-      </div>
-
+      <PageSelector page={page} maxPages={maxPages} onChangePage={onChangePage} />
     </div>
   )
 }
