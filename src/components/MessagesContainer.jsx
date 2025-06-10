@@ -1,9 +1,6 @@
-import { useState } from "react"
 import MessageCard from "./MessageCard"
 
-
-const MessagesContainer = ({ messages, onLike, onDelete, onEdit }) => {
-  const [page, setPage] = useState(1)
+const MessagesContainer = ({ messages, page, maxPages, onChangePage, onLike, onDelete, onEdit }) => {
 
   return (
     <div
@@ -20,6 +17,25 @@ const MessagesContainer = ({ messages, onLike, onDelete, onEdit }) => {
           />
         )
       })}
+      <div className="flex gap-2 items-center self-center">
+        <button
+          className="cursor-pointer"
+          type="button"
+          onClick={() => onChangePage(page - 1)}
+          disabled={page <= 1}
+        >
+          Previous
+        </button>
+        <p>Page {page}</p>
+        <button
+          className="cursor-pointer"
+          type="button"
+          onClick={() => onChangePage(page + 1)}
+          disabled={page === maxPages}
+        >
+          Next
+        </button>
+      </div>
 
     </div>
   )

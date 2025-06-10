@@ -11,24 +11,46 @@ const MainSection = () => {
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
 
-  const url = "https://think-happy-api.onrender.com/thoughts"
-  // const url = "http://localhost:8080/thoughts" // local api
+  const [url, setUrl] = useState("")
 
-  const fetchMessages = async () => {
-    try {
-      setErrorMessage("")
-      setLoading(true)
-      const response = await fetch(url)
-      if (response.ok) {
-        const data = await response.json()
-        setMessages(data.response)
-      }
-    } catch (error) {
-      setErrorMessage(`An error occured when loading thoughts: ${error.message}`)
-    } finally {
-      setLoading(false)
+  const [page, setPage] = useState(0)
+  const [sortBy, setSortBy] = useState("")
+  const [filterOn, setFilterOn] = useState("")
+
+  useEffect(() => {
+    let newUrl = `https://think-happy-api.onrender.com/thoughts`
+    // let newUrl = "http://localhost:8080/thoughts" // local api
+    if (!page || page < 1) {
+      setPage(1)
     }
-  }
+    newUrl = `https://think-happy-api.onrender.com/thoughts?page=${page}`
+    if (sortBy) {
+      newUrl += `&sort=${sortBy}`
+    }
+    if (filterOn) {
+      newUrl += `&tags=${filterOn}`
+    }
+    setUrl(newUrl)
+  }, [page, sortBy, filterOn])
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        setErrorMessage("")
+        setLoading(true)
+        const response = await fetch(url)
+        if (response.ok) {
+          const data = await response.json()
+          setMessages(data.response)
+        }
+      } catch (error) {
+        setErrorMessage(`An error occured when loading thoughts: ${error.message}`)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchMessages()
+  }, [url])
 
   const postMessage = async (message, tags) => {
     let tagsArray = tags
@@ -129,9 +151,9 @@ const MainSection = () => {
     editMessage(id, newMessage)
   }
 
-  useEffect(() => {
-    fetchMessages()
-  }, [])
+  const handlePageChange = (newPage) => {
+    setPage(newPage)
+  }
 
   return (
     <section className="flex flex-col gap-10 pb-15 min-h-screen">
@@ -139,7 +161,7 @@ const MainSection = () => {
       <ControlsCard />
       {loading && <Loader />}
       {errorMessage && <Error text={errorMessage} />}
-      <MessagesContainer messages={messages} onLike={handleLike} onDelete={handleDelete} onEdit={handleEdit} />
+      <MessagesContainer messages={messages} page={page} onChangePage={handlePageChange} onLike={handleLike} onDelete={handleDelete} onEdit={handleEdit} />
     </section>
   )
 }
