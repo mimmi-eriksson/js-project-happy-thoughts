@@ -2,9 +2,9 @@ import { useState } from "react"
 import SortOption from "./SortOption"
 import FilterOption from "./FilterOption"
 
-const ControlsCard = ({ onSort, onFilter }) => {
-  const [sorting, setSorting] = useState("createdAt")
-  const [filter, setFilter] = useState("all")
+const ControlsCard = ({ sortBy, filterOn, onSort, onFilter }) => {
+  const [sorting, setSorting] = useState(sortBy)
+  const [filter, setFilter] = useState(filterOn)
 
   const sortOptions = [
     { id: "createdAt", label: "Recent thoughts" },

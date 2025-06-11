@@ -1,7 +1,7 @@
 import MessageCard from "./MessageCard"
 import PageSelector from "./PageSelector"
 
-const MessagesContainer = ({ messages, page, maxPages, onChangePage, onLike, onDelete, onEdit }) => {
+const MessagesContainer = ({ messages, page, maxPages, onChangePage, onFilter, onLike, onDelete, onEdit }) => {
 
   return (
     <div
@@ -15,6 +15,7 @@ const MessagesContainer = ({ messages, page, maxPages, onChangePage, onLike, onD
             onLike={() => onLike(message._id)}
             onDelete={() => onDelete(message._id)}
             onEdit={onEdit}
+            onFilter={onFilter}
           />
         )
       })}

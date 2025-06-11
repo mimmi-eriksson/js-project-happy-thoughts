@@ -6,7 +6,7 @@ import Tag from "./Tag"
 import SubmitButton from "./SubmitButton"
 import CancelButton from "./CancelButton"
 
-const MessageCard = ({ message, onLike, onDelete, onEdit }) => {
+const MessageCard = ({ message, onFilter, onLike, onDelete, onEdit }) => {
 
   const [editedMessage, setEditedMessage] = useState("")
   const [showInput, setShowInput] = useState(false)
@@ -54,7 +54,7 @@ const MessageCard = ({ message, onLike, onDelete, onEdit }) => {
               className="flex gap-3"
             >
               {message.tags.map(tag => {
-                return <Tag key={tag} tag={tag} />
+                return <Tag key={tag} tag={tag} onFilter={onFilter} />
               })}
             </ul>
             <div className="flex gap-3">
@@ -77,6 +77,7 @@ const MessageCard = ({ message, onLike, onDelete, onEdit }) => {
                 onKeyDown={handleKeyDown}
                 value={editedMessage}
                 maxLength={maxCharacters}
+                autoFocus
               />
               <div className="flex justify-between">
                 <SubmitButton text="❤️ Edit Thought ❤️" isActive={editedMessage.length >= minCharacters ? true : false} />

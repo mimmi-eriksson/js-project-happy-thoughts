@@ -18,8 +18,8 @@ const MainSection = () => {
   const [page, setPage] = useState()
   const [maxPages, setMaxPages] = useState(1)
 
-  const [sortBy, setSortBy] = useState("")
-  const [filterOn, setFilterOn] = useState("")
+  const [sortBy, setSortBy] = useState("createdAt")
+  const [filterOn, setFilterOn] = useState("all")
 
   useEffect(() => {
     let newUrl = baseUrl
@@ -177,10 +177,10 @@ const MainSection = () => {
   return (
     <section className="flex flex-col gap-10 pb-15 min-h-screen">
       <FormCard onMessageSubmission={handleMessageSubmission} />
-      <ControlsCard onSort={handleSorting} onFilter={handleFilter} />
+      <ControlsCard sortBy={sortBy} filterOn={filterOn} onSort={handleSorting} onFilter={handleFilter} />
       {loading && <Loader />}
       {errorMessage && <Error text={errorMessage} />}
-      {!errorMessage && <MessagesContainer messages={messages} page={page} maxPages={maxPages} onChangePage={handleChangePage} onLike={handleLike} onDelete={handleDelete} onEdit={handleEdit} />}
+      {!errorMessage && <MessagesContainer messages={messages} page={page} maxPages={maxPages} onChangePage={handleChangePage} onFilter={handleFilter} onLike={handleLike} onDelete={handleDelete} onEdit={handleEdit} />}
     </section>
   )
 }
