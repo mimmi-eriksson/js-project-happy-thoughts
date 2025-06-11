@@ -11,7 +11,9 @@ const MainSection = () => {
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
 
-  const [url, setUrl] = useState("")
+  const baseUrl = "https://think-happy-api.onrender.com/thoughts"
+  // const baseUrl = "http://localhost:8080/thoughts" // local api
+  const [fetchUrl, setFetchUrl] = useState("")
 
   const [page, setPage] = useState()
   const [maxPages, setMaxPages] = useState(1)
@@ -20,8 +22,7 @@ const MainSection = () => {
   const [filterOn, setFilterOn] = useState("")
 
   useEffect(() => {
-    let newUrl = `https://think-happy-api.onrender.com/thoughts`
-    // let newUrl = "http://localhost:8080/thoughts" // local api
+    let newUrl = baseUrl
     if (!page || page < 1) {
       setPage(1)
     }
@@ -36,7 +37,7 @@ const MainSection = () => {
         newUrl += `&tag=${filterOn}`
       }
     }
-    setUrl(newUrl)
+    setFetchUrl(newUrl)
   }, [page, sortBy, filterOn])
 
   useEffect(() => {
@@ -44,7 +45,7 @@ const MainSection = () => {
       try {
         setErrorMessage("")
         setLoading(true)
-        const response = await fetch(url)
+        const response = await fetch(fetchUrl)
         if (response.ok) {
           const data = await response.json()
           setMessages(data.response.data)
@@ -57,7 +58,7 @@ const MainSection = () => {
       }
     }
     fetchMessages()
-  }, [url])
+  }, [fetchUrl])
 
   const postMessage = async (message, tags) => {
     let tagsArray = tags
@@ -66,7 +67,7 @@ const MainSection = () => {
     }
     try {
       setErrorMessage("")
-      const response = await fetch(url, {
+      const response = await fetch(baseUrl, {
         method: "POST",
         body: JSON.stringify({
           message: message,
@@ -88,7 +89,7 @@ const MainSection = () => {
   const likeMessage = async (id) => {
     try {
       setErrorMessage("")
-      const response = await fetch(`${url}/${id}/like`, { method: "PATCH" })
+      const response = await fetch(`${baseUrl}/${id}/like`, { method: "PATCH" })
       if (response.ok) {
         const likedMessage = await response.json()
         setMessages((messages) => messages.map(message =>
@@ -105,7 +106,7 @@ const MainSection = () => {
   const deleteMessage = async (id) => {
     try {
       setErrorMessage("")
-      const response = await fetch(`${url}/${id}`, { method: "DELETE" })
+      const response = await fetch(`${baseUrl}/${id}`, { method: "DELETE" })
       if (response.ok) {
         const deletedMessage = await response.json()
         setMessages((messages) => messages.filter(message =>
@@ -122,7 +123,7 @@ const MainSection = () => {
   const editMessage = async (id, newMessage) => {
     try {
       setErrorMessage("")
-      const response = await fetch(`${url}/${id}`, {
+      const response = await fetch(`${baseUrl}/${id}`, {
         method: "PATCH",
         body: JSON.stringify({
           message: newMessage,
