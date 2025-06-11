@@ -12,9 +12,9 @@ const PageSelector = ({ page, maxPages, onChangePage }) => {
 
   return (
     <div className="flex gap-4 items-center self-center text-sm">
-      <ArrowButton icon="<" isActive={(page > 1) ? true : false} onClick={previousPage} />
+      <ArrowButton icon="<" isActive={(page > 1) ? true : false} onClick={previousPage} ariaLabel="Previous page" />
       <p>Page {page} of {maxPages}</p>
-      <ArrowButton icon=">" isActive={page < maxPages} onClick={nextPage} />
+      <ArrowButton icon=">" isActive={page < maxPages} onClick={nextPage} ariaLabel="Next page" />
     </div>
   )
 }

@@ -27,8 +27,9 @@ const ControlsCard = ({ sortBy, filterOn, onSort, onFilter }) => {
       className="px-5 text-sm"
     >
       <form className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <p>Sort on:</p>
+
+        <fieldset className="flex items-center justify-between">
+          <legend className="float-left" >Sort on:</legend>
           {sortOptions.map(({ id, label }) => (
             <SortOption
               key={id}
@@ -39,7 +40,7 @@ const ControlsCard = ({ sortBy, filterOn, onSort, onFilter }) => {
               onChange={onSortingChange}
             />
           ))}
-        </div>
+        </fieldset>
 
         <div className="flex items-center gap-2">
           <label className="w-25" htmlFor="tags">Filter on:</label>

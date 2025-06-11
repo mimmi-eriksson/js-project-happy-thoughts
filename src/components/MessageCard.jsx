@@ -58,8 +58,8 @@ const MessageCard = ({ message, onFilter, onLike, onDelete, onEdit }) => {
               })}
             </ul>
             <div className="flex gap-3">
-              <MessageCardButton icon={"🖋️"} onClick={onEditMessage} />
-              <MessageCardButton icon={"🗑️"} onClick={onDelete} />
+              <MessageCardButton icon={"🖋️"} onClick={onEditMessage} ariaLabel="Edit thought" />
+              <MessageCardButton icon={"🗑️"} onClick={onDelete} ariaLabel="Delete thought" />
             </div>
           </div>
           <p

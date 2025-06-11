@@ -8,6 +8,7 @@ const LikeButton = ({ likes, onLike }) => {
       onClick={onLike}
       whileHover={{ scale: 1.15 }}
       whileTap={{ scale: 0.9 }}
+      aria-label="Like thought"
     >
       ❤️
     </motion.button>
