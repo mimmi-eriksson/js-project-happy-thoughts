@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react"
-
-import LogInCard from "../components/LogInCard"
 import Error from "../components/Error"
 import FormCard from "../components/FormCard"
 import ControlsCard from "../components/ControlsCard"
@@ -176,8 +174,7 @@ const MainSection = () => {
   }
 
   return (
-    <section className="flex flex-col gap-10 pb-15 min-h-screen">
-      <LogInCard />
+    <section className="flex flex-col gap-10 py-10 min-h-screen">
       <FormCard onMessageSubmission={handleMessageSubmission} />
       <ControlsCard sortBy={sortBy} filterOn={filterOn} onSort={handleSorting} onFilter={handleFilter} />
       {loading && <Loader />}
