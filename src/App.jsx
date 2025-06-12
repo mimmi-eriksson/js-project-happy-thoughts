@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router'
-import Header from "./sections/Header"
+import NavBar from "./sections/NavBar"
 import MainSection from "./sections/MainSection"
 import Footer from "./sections/Footer"
 import Home from './pages/Home'
@@ -13,8 +13,7 @@ const App = () => {
     <>
       <BrowserRouter>
         <div className="flex flex-col min-h-screen">
-          {/* <Navbar /> */}
-          {/* <Header /> */}
+          <NavBar />
           <div
             className="w-full max-w-md px-10 mx-auto"
           >
@@ -22,8 +21,8 @@ const App = () => {
               <Route path='/' element={<Home />} />
               <Route path='/login' element={<LogIn />} />
               <Route path='/register' element={<Register />} />
-              {/* <Route path='/thoughts' element={<Thoughts />} /> */}
-              <Route path='/thoughts' element={<MainSection />} />
+              <Route path='/thoughts' element={<Thoughts />} />
+              {/* <Route path='/thoughts' element={<MainSection />} /> */}
               <Route path='*' element={<NotFound />} />
             </Routes>
           </div>

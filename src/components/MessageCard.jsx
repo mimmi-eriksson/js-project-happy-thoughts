@@ -6,15 +6,92 @@ import Tag from "./Tag"
 import SubmitButton from "./SubmitButton"
 import CancelButton from "./CancelButton"
 
-const MessageCard = ({ message, onFilter, onLike, onDelete, onEdit }) => {
-
+const MessageCard = ({ message, onError, onFilter, update }) => {
+  const [errorMessage, setErrorMessage] = useState("")
   const [editedMessage, setEditedMessage] = useState("")
   const [showInput, setShowInput] = useState(false)
   const maxCharacters = 140
   const minCharacters = 5
+  const url = "https://think-happy-api.onrender.com/thoughts"
+
+  const likeMessage = async () => {
+    try {
+      setErrorMessage("")
+      const response = await fetch(`${url}/${message._id}/like`, { method: "PATCH" })
+      if (response.ok) {
+        const likedMessage = await response.json()
+        update((messages) => messages.map(m =>
+          m._id === message._id ? { ...m, hearts: likedMessage.response.hearts } : m
+        ))
+      }
+    } catch (error) {
+      setErrorMessage(`An error occured when liking thought: ${error.message}`)
+      onError(errorMessage)
+    } finally {
+      //
+    }
+  }
+
+  const deleteMessage = async () => {
+    try {
+      setErrorMessage("")
+      const response = await fetch(`${url}/${message._id}`, { method: "DELETE" })
+      if (response.ok) {
+        const deletedMessage = await response.json()
+        update((messages) => messages.filter(m =>
+          m._id !== deletedMessage.response._id
+        ))
+      }
+    } catch (error) {
+      setErrorMessage(`An error occured when deleting thought: ${error.message}`)
+      onError(errorMessage)
+    } finally {
+      //
+    }
+  }
+
+  const editMessage = async (newMessage) => {
+    try {
+      setErrorMessage("")
+      const response = await fetch(`${url}/${message._id}`, {
+        method: "PATCH",
+        body: JSON.stringify({
+          message: newMessage,
+        }),
+        headers: { "Content-Type": "application/json" }
+      })
+      if (response.ok) {
+        const editedMessage = await response.json()
+        update((messages) => messages.map(m =>
+          m._id === message._id ? { ...m, message: editedMessage.response.message } : m
+        ))
+      }
+    } catch (error) {
+      setErrorMessage(`An error occured when editing thought: ${error.message}`)
+      onError(errorMessage)
+    } finally {
+      //
+    }
+  }
+
+  const onEdit = () => {
+    setShowInput(current => !current)
+  }
+
+  const onCancel = () => {
+    setEditedMessage("")
+    setShowInput(false)
+  }
 
   const handleTyping = (event) => {
     setEditedMessage(event.target.value)
+  }
+
+  const onSubmitEditedMessage = (event) => {
+    event.preventDefault()
+    editMessage(editedMessage)
+    setEditedMessage("")
+    setShowInput(false)
   }
 
   const handleKeyDown = (event) => {
@@ -22,21 +99,6 @@ const MessageCard = ({ message, onFilter, onLike, onDelete, onEdit }) => {
       event.preventDefault()
       onSubmitEditedMessage(event)
     }
-  }
-
-  const onSubmitEditedMessage = (event) => {
-    event.preventDefault()
-    onEdit(message._id, editedMessage)
-    setEditedMessage("")
-    setShowInput(false)
-  }
-
-  const onEditMessage = () => {
-    setShowInput(true)
-  }
-  const onCancel = () => {
-    setEditedMessage("")
-    setShowInput(false)
   }
 
   return (
@@ -49,17 +111,17 @@ const MessageCard = ({ message, onFilter, onLike, onDelete, onEdit }) => {
         <div
           className="flex flex-col gap-5"
         >
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center gap-3">
             <ul
-              className="flex gap-3"
+              className="flex flex-wrap gap-2"
             >
               {message.tags.map(tag => {
                 return <Tag key={tag} tag={tag} onFilter={onFilter} />
               })}
             </ul>
-            <div className="flex gap-3">
-              <MessageCardButton icon={"🖋️"} onClick={onEditMessage} ariaLabel="Edit thought" />
-              <MessageCardButton icon={"🗑️"} onClick={onDelete} ariaLabel="Delete thought" />
+            <div className="flex gap-2 self-start">
+              <MessageCardButton icon={"🖋️"} onClick={onEdit} ariaLabel="Edit thought" />
+              <MessageCardButton icon={"🗑️"} onClick={deleteMessage} ariaLabel="Delete thought" />
             </div>
           </div>
           <p
@@ -80,7 +142,7 @@ const MessageCard = ({ message, onFilter, onLike, onDelete, onEdit }) => {
                 autoFocus
               />
               <div className="flex justify-between">
-                <SubmitButton text="❤️ Edit Thought ❤️" isActive={editedMessage.length >= minCharacters ? true : false} />
+                <SubmitButton text="Save" isActive={editedMessage.length >= minCharacters ? true : false} />
                 <CancelButton onClick={onCancel} />
               </div>
             </form>
@@ -92,7 +154,7 @@ const MessageCard = ({ message, onFilter, onLike, onDelete, onEdit }) => {
           <div
             className="flex items-center gap-2"
           >
-            <LikeButton likes={message.hearts} onLike={onLike} />
+            <LikeButton likes={message.hearts} onLike={likeMessage} />
             <p
               className="text-[#707070] text-sm"
             >

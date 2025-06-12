@@ -38,7 +38,7 @@ const UserForm = ({ title }) => {
         onSubmit={handleSubmit}
       >
         <div>
-          <h2 className="pb-1 text-(--color-primary) text-xl font-semibold" >{title}</h2>
+          <h2 className="pb-1 text-(--color-text) text-xl font-semibold" >{title}</h2>
         </div>
         <UserFormInput
           type="userName"
@@ -54,10 +54,10 @@ const UserForm = ({ title }) => {
         <SubmitButton text={title} isActive="true" />
       </form>
 
-      <div className="flex gap-2 text-sm">
+      <div className="flex flex-wrap justify-center gap-x-2 gap-y-1 text-sm text-center">
         <p>{title === 'Log in' ? "Don't have an account?" : 'Already have an account?'}</p>
         <Link
-          className="text-(--color-primary) underline cursor-pointer"
+          className="text-(--color-text) underline cursor-pointer"
           to={title === 'Log in' ? '/register' : '/login'}
         >
           {title === 'Log in' ? 'Sign up' : 'Log in'}

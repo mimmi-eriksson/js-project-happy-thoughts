@@ -2,11 +2,13 @@
 @import "tailwindcss";
 
 :root {
-  background: #fff6f6;
+  background: #fffafa;
   font-family: "Roboto", sans-serif;
+  --color-background: #fffafa;
   --color-primary: #ee5555;
   --color-secondary: #eaeaea;
   --color-accent: #ffadad;
+  --color-text: #dd2525;
 }
 
 @layer utilities {

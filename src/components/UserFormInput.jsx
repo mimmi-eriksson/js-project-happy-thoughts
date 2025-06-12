@@ -6,7 +6,8 @@ const UserFormInput = ({ type, onChange, value }) => {
         className="bg-white border border-gray-400 w-full p-2 font-mono focus:outline-(--color-accent)"
         type={type === "password" ? { type } : "text"}
         name={type}
-        placeholder="user name"
+        id={type}
+        placeholder={type === "userName" ? "user name" : "password"}
         onChange={onChange}
         value={value}
         required
