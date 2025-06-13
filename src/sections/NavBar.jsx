@@ -1,16 +1,18 @@
+import { useAuth } from "../context/AuthContext"
 import NavLink from "../components/NavLink"
 
-const NavBar = ({ loggedIn, logOut }) => {
+const NavBar = () => {
+  const { isLoggedIn, logout } = useAuth()
 
   return (
     <header className="sticky top-0 w-full left-0 z-2">
       <nav className="py-2 px-5 bg-(--color-background) text-(--color-text)">
         <ul className="flex justify-end gap-6">
-          {loggedIn ? (
+          {isLoggedIn ? (
             <>
               <NavLink text="Thoughts" linkTo="/thoughts" />
               <li>
-                <button type="button" onClick={logOut}>Log out</button>
+                <button className="cursor-pointer" type="button" onClick={logout}>Log out</button>
               </li>
             </>
           ) : (

@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router'
+import { AuthProvider } from './context/AuthContext'
 import NavBar from "./sections/NavBar"
-import MainSection from "./sections/MainSection"
 import Footer from "./sections/Footer"
 import Home from './pages/Home'
 import LogIn from './pages/LogIn'
@@ -10,8 +10,8 @@ import NotFound from './pages/NotFound'
 
 const App = () => {
   return (
-    <>
-      <BrowserRouter>
+    <BrowserRouter>
+      <AuthProvider>
         <div className="flex flex-col min-h-screen">
           <NavBar />
           <div
@@ -28,8 +28,8 @@ const App = () => {
           </div>
           <Footer />
         </div>
-      </BrowserRouter>
-    </>
+      </AuthProvider>
+    </BrowserRouter>
   )
 }
 

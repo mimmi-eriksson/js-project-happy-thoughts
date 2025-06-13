@@ -3,32 +3,22 @@ import { Link } from "react-router-dom"
 import UserFormInput from "./UserFormInput"
 import SubmitButton from "./SubmitButton"
 
-const UserForm = ({ title }) => {
+const UserForm = ({ title, onSubmit, error, message }) => {
   const [formData, setFormData] = useState({
     userName: "",
     password: "",
   })
-  const [error, setError] = useState("")
+  const [formError, setFormError] = useState("")
 
   const handleSubmit = (event) => {
     event.preventDefault()
-
+    setFormError("")
     if (!formData.userName || !formData.password) {
-      setError("Please fill in both fields")
+      setFormError("Please fill in both fields")
       return
     }
-
-    setError("")
-
-    console.log(formData)
-
-    //post to api 
-    // prop: onSubmit(formData)
-
-    //navigate to another page
-
-    //clear input fields?
-
+    onSubmit(formData.userName, formData.password)
+    event.target.reset()
   }
 
   return (
@@ -40,6 +30,8 @@ const UserForm = ({ title }) => {
         <div>
           <h2 className="pb-1 text-(--color-text) text-xl font-semibold" >{title}</h2>
         </div>
+        {error && <p className="font-mono text-red-500">{error}</p>}
+        {message && <p className="font-mono text-green-600">{message}</p>}
         <UserFormInput
           type="userName"
           onChange={(e) => setFormData({ ...formData, userName: e.target.value })}
@@ -50,7 +42,7 @@ const UserForm = ({ title }) => {
           onChange={(e) => setFormData({ ...formData, password: e.target.value })}
           value={formData.password}
         />
-        {error && <div className="text-red-500">{error}</div>}
+        {formError && <p className="text-red-500">{error}</p>}
         <SubmitButton text={title} isActive="true" />
       </form>
 

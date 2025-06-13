@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { useAuth } from "../context/AuthContext"
 import Error from "../components/Error"
 import MessageForm from "../components/MessageForm"
 import ControlsCard from "../components/ControlsCard"
@@ -6,7 +7,7 @@ import Loader from "../components/Loader"
 import MessagesContainer from "../components/MessagesContainer"
 
 const Thoughts = () => {
-  const [user, setUser] = useState("")
+  const { currentUser } = useAuth()
   const [messages, setMessages] = useState([])
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
@@ -89,7 +90,7 @@ const Thoughts = () => {
   return (
     <section className="flex flex-col gap-10 py-10 min-h-screen">
       <h1 className="pb-2 text-(--color-text) text-center text-2xl font-bold">
-        Welcome {user}!
+        Welcome {currentUser.username}!
       </h1>
       <MessageForm update={handleUpdate} />
       <ControlsCard sortBy={sortBy} filterOn={filterOn} onSort={handleSorting} onFilter={handleFilter} />
