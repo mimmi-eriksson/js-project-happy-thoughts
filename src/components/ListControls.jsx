@@ -2,13 +2,13 @@ import { useState } from "react"
 import SortOption from "./SortOption"
 import FilterOption from "./FilterOption"
 
-const ControlsCard = ({ sortBy, filterOn, onSort, onFilter }) => {
+const ListControls = ({ sortBy, filterOn, onSort, onFilter }) => {
   const [sorting, setSorting] = useState(sortBy)
   const [filter, setFilter] = useState(filterOn)
 
   const sortOptions = [
-    { id: "createdAt", label: "Recent thoughts" },
-    { id: "hearts", label: "Popular thoughts" }
+    { id: "createdAt", label: "Recent" },
+    { id: "hearts", label: "Popular" }
   ]
   const filterOptions = ["all", "travel", "food", "family", "friends", "humor", "nature", "wellness", "home", "entertainment", "work", "other"]
 
@@ -28,24 +28,26 @@ const ControlsCard = ({ sortBy, filterOn, onSort, onFilter }) => {
     >
       <form className="flex flex-col gap-3">
 
-        <fieldset className="flex items-center justify-between">
+        <fieldset className="flex items-center gap-8">
           <legend className="float-left" >Sort on:</legend>
-          {sortOptions.map(({ id, label }) => (
-            <SortOption
-              key={id}
-              radioGroup="sortBy"
-              id={id}
-              label={label}
-              isChecked={sorting === id}
-              onChange={onSortingChange}
-            />
-          ))}
+          <div className="flex gap-5">
+            {sortOptions.map(({ id, label }) => (
+              <SortOption
+                key={id}
+                radioGroup="sortBy"
+                id={id}
+                label={label}
+                isChecked={sorting === id}
+                onChange={onSortingChange}
+              />
+            ))}
+          </div>
         </fieldset>
 
-        <div className="flex items-center gap-2">
-          <label className="w-25" htmlFor="tags">Filter on:</label>
+        <div className="flex items-center gap-6">
+          <label className="" htmlFor="tags">Filter on:</label>
           <select
-            className="bg-[#ffeded] border border-(--color-accent) rounded-lg focus:outline-2 focus:outline-(--color-primary) w-full p-1 cursor-pointer"
+            className="w-40 bg-[#ffeded] border border-(--color-accent) rounded-lg focus:outline-2 focus:outline-(--color-primary) p-1 cursor-pointer"
             name="tags"
             id="tags"
             value={filter}
@@ -61,4 +63,4 @@ const ControlsCard = ({ sortBy, filterOn, onSort, onFilter }) => {
   )
 }
 
-export default ControlsCard
+export default ListControls

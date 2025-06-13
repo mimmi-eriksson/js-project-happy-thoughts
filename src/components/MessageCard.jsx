@@ -120,7 +120,7 @@ const MessageCard = ({ message, onError, onFilter, update }) => {
         >
           <div className="flex justify-between items-center gap-3">
             <ul
-              className="flex flex-wrap gap-2"
+              className="flex flex-wrap gap-1"
             >
               {message.tags.map(tag => {
                 return <Tag key={tag} tag={tag} onFilter={onFilter} />
@@ -149,7 +149,7 @@ const MessageCard = ({ message, onError, onFilter, update }) => {
                 autoFocus
               />
               <div className="flex justify-between">
-                <SubmitButton text="Save" isActive={editedMessage.length >= minCharacters ? true : false} />
+                <SubmitButton text="Edit thought" isActive={editedMessage.length >= minCharacters ? true : false} />
                 <CancelButton onClick={onCancel} />
               </div>
             </form>

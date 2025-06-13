@@ -7,7 +7,7 @@ const NavBar = () => {
 
   return (
     <header className="sticky top-0 w-full left-0 z-2">
-      <nav className="flex justify-between py-2 px-2 sm:px-5 bg-(--color-background) text-(--color-text)">
+      <nav className="flex justify-between py-2 px-2 min-[375px]:px-5 bg-(--color-background) text-(--color-text)">
         <Link to="/" >
           <h1 className="font-semibold" >Happy Thoughts</h1>
         </Link>

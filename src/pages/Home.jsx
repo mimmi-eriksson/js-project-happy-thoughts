@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useAuth } from "../context/AuthContext"
 import Error from "../components/Error"
 import MessageForm from "../components/MessageForm"
-import ControlsCard from "../components/ControlsCard"
+import ListControls from "../components/ListControls"
 import Loader from "../components/Loader"
 import MessagesContainer from "../components/MessagesContainer"
 
@@ -93,7 +93,7 @@ const Home = () => {
         Welcome {currentUser ? currentUser.username : "to Happy Thoughts"}!
       </h2>
       <MessageForm update={handleUpdate} />
-      <ControlsCard sortBy={sortBy} filterOn={filterOn} onSort={handleSorting} onFilter={handleFilter} />
+      <ListControls sortBy={sortBy} filterOn={filterOn} onSort={handleSorting} onFilter={handleFilter} />
       {loading && <Loader />}
       {errorMessage && <Error text={errorMessage} />}
       {!errorMessage && <MessagesContainer messages={messages} page={page} maxPages={maxPages} onChangePage={handleChangePage} onFilter={handleFilter} onError={handleError} update={handleUpdate} />}

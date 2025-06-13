@@ -16,7 +16,7 @@ const App = () => {
         <div className="flex flex-col min-h-screen">
           <NavBar />
           <div
-            className="w-full max-w-md px-10 mx-auto"
+            className="w-full max-w-md px-4 min-[375px]:px-10 mx-auto"
           >
             <Routes>
               <Route path='/' element={<Home />} />
