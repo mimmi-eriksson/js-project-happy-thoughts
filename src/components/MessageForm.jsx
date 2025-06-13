@@ -3,12 +3,12 @@ import { useAuth } from "../context/AuthContext"
 import SubmitButton from "./SubmitButton"
 import Tag from "./Tag"
 
-const MessageForm = ({ onError, update }) => {
-  const { token } = useAuth()
+const MessageForm = ({ update }) => {
+  const { currentUser, token } = useAuth()
   const [message, setMessage] = useState("")
   const [characters, setCharacters] = useState(0)
   const [tags, setTags] = useState([])
-  const [errorMessage, setErrorMessage] = useState("")
+  const [error, setError] = useState("")
   const maxCharacters = 140
   const minCharacters = 5
   const tagsOptions = ["travel", "food", "family", "friends", "humor", "nature", "wellness", "home", "entertainment", "work", "other"]
@@ -21,10 +21,11 @@ const MessageForm = ({ onError, update }) => {
       tagsArray = ["other"]
     }
     try {
-      setErrorMessage("")
+      setError("")
       const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify({
+          user: currentUser.id,
           message: message,
           tags: tagsArray
         }),
@@ -33,15 +34,19 @@ const MessageForm = ({ onError, update }) => {
           "Authorization": token
         }
       })
-      if (response.ok) {
-        const newMessage = await response.json()
-        update((messages) => [newMessage.response, ...messages])
+      const data = await response.json()
+      if (!response.ok) {
+        if (response.status === 401) {
+          setError("You need to be logged in to post a thought.")
+          return
+        }
+        setError("Posting thought failed." + data.message)
+        return
       }
+      const newMessage = data.response
+      update((messages) => [newMessage, ...messages])
     } catch (error) {
-      setErrorMessage(`An error occured when posting thought: ${error.message}`)
-      onError(errorMessage)
-    } finally {
-      //
+      setError(`An error occured when posting thought: ${error.message}`)
     }
   }
 
@@ -108,6 +113,7 @@ const MessageForm = ({ onError, update }) => {
             </ul>
           </div>
         )}
+        {error && <p className="font-mono text-red-500">{error}</p>}
         <SubmitButton text="❤️ Send Happy Thought ❤️" isActive={message.length >= minCharacters ? true : false} />
       </form>
     </article>

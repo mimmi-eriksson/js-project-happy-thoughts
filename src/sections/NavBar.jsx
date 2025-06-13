@@ -11,7 +11,7 @@ const NavBar = () => {
         <Link to="/" >
           <h1 className="font-semibold" >Happy Thoughts</h1>
         </Link>
-        <ul className="flex justify-end gap-3 sm:gap-6">
+        <ul className="flex justify-end gap-3 min-[375px]:gap-6">
           {isLoggedIn ? (
             <>
               <NavLink text="My thoughts" linkTo="/thoughts" />

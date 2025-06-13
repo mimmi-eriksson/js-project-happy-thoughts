@@ -7,9 +7,9 @@ import Tag from "./Tag"
 import SubmitButton from "./SubmitButton"
 import CancelButton from "./CancelButton"
 
-const MessageCard = ({ message, onError, onFilter, update }) => {
+const MessageCard = ({ message, onFilter, update }) => {
   const { token } = useAuth()
-  const [errorMessage, setErrorMessage] = useState("")
+  const [error, setError] = useState("")
   const [editedMessage, setEditedMessage] = useState("")
   const [showInput, setShowInput] = useState(false)
   const maxCharacters = 140
@@ -19,7 +19,7 @@ const MessageCard = ({ message, onError, onFilter, update }) => {
 
   const likeMessage = async () => {
     try {
-      setErrorMessage("")
+      setError("")
       const response = await fetch(`${url}/${message._id}/like`, { method: "PATCH" })
       if (response.ok) {
         const likedMessage = await response.json()
@@ -28,8 +28,7 @@ const MessageCard = ({ message, onError, onFilter, update }) => {
         ))
       }
     } catch (error) {
-      setErrorMessage(`An error occured when liking thought: ${error.message}`)
-      onError(errorMessage)
+      setError(`An error occured when liking thought: ${error.message}`)
     } finally {
       //
     }
@@ -37,26 +36,40 @@ const MessageCard = ({ message, onError, onFilter, update }) => {
 
   const deleteMessage = async () => {
     try {
-      setErrorMessage("")
+      setError("")
       const response = await fetch(`${url}/${message._id}`, {
         method: "DELETE",
         headers: { "Authorization": token }
       })
-      if (response.ok) {
-        const deletedMessage = await response.json()
-        update((messages) => messages.filter(m =>
-          m._id !== deletedMessage.response._id
-        ))
+      const data = await response.json()
+      if (!response.ok) {
+        if (response.status === 401) {
+          setError("You need to be logged in to delete a thought.")
+          return
+        }
+        if (response.status === 404) {
+          setError("You are only allowed to delete your own thoughts.")
+          return
+        }
+        if (response.status === 500) {
+          setError("Server error. Please try again later.")
+          return
+        }
+        setError("Deleting thought failed." + data.message)
       }
+      const deletedMessage = data.response
+      update((messages) => messages.filter(m =>
+        m._id !== deletedMessage._id
+      ))
+
     } catch (error) {
-      setErrorMessage(`An error occured when deleting thought: ${error.message}`)
-      onError(errorMessage)
+      setError(`An error occured when deleting thought: ${error.message}`)
     }
   }
 
   const editMessage = async (newMessage) => {
     try {
-      setErrorMessage("")
+      setError("")
       const response = await fetch(`${url}/${message._id}`, {
         method: "PATCH",
         body: JSON.stringify({
@@ -67,17 +80,28 @@ const MessageCard = ({ message, onError, onFilter, update }) => {
           "Authorization": token
         }
       })
-      if (response.ok) {
-        const editedMessage = await response.json()
-        update((messages) => messages.map(m =>
-          m._id === message._id ? { ...m, message: editedMessage.response.message } : m
-        ))
+      const data = await response.json()
+      if (!response.ok) {
+        if (response.status === 401) {
+          setError("You need to be logged in to edit a thought.")
+          return
+        }
+        if (response.status === 404) {
+          setError("You are only allowed to edit your own thoughts.")
+          return
+        }
+        if (response.status === 500) {
+          setError("Server error. Please try again later.")
+          return
+        }
+        setError("Editing thought failed." + data.message)
       }
+      const editedMessage = data.response
+      update((messages) => messages.map(m =>
+        m._id === message._id ? { ...m, message: editedMessage.message } : m
+      ))
     } catch (error) {
-      setErrorMessage(`An error occured when editing thought: ${error.message}`)
-      onError(errorMessage)
-    } finally {
-      //
+      setError(`An error occured when editing thought: ${error.message}`)
     }
   }
 
@@ -154,6 +178,7 @@ const MessageCard = ({ message, onError, onFilter, update }) => {
               </div>
             </form>
           }
+          {error && <p className="font-mono text-red-500">{error}</p>}
         </div>
         <div
           className="flex justify-between items-center"

@@ -92,7 +92,7 @@ const Home = () => {
       <h2 className="pb-2 text-(--color-text) text-center text-2xl font-bold">
         Welcome {currentUser ? currentUser.username : "to Happy Thoughts"}!
       </h2>
-      <MessageForm update={handleUpdate} />
+      <MessageForm update={handleUpdate} onError={handleError} />
       <ListControls sortBy={sortBy} filterOn={filterOn} onSort={handleSorting} onFilter={handleFilter} />
       {loading && <Loader />}
       {errorMessage && <Error text={errorMessage} />}
