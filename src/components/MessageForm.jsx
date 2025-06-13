@@ -1,8 +1,10 @@
 import { useState } from "react"
+import { useAuth } from "../context/AuthContext"
 import SubmitButton from "./SubmitButton"
 import Tag from "./Tag"
 
 const MessageForm = ({ onError, update }) => {
+  const { token } = useAuth()
   const [message, setMessage] = useState("")
   const [characters, setCharacters] = useState(0)
   const [tags, setTags] = useState([])
@@ -10,7 +12,8 @@ const MessageForm = ({ onError, update }) => {
   const maxCharacters = 140
   const minCharacters = 5
   const tagsOptions = ["travel", "food", "family", "friends", "humor", "nature", "wellness", "home", "entertainment", "work", "other"]
-  const url = "https://think-happy-api.onrender.com/thoughts"
+  // const url = "https://think-happy-api.onrender.com/thoughts"
+  const url = "http://localhost:8080/thoughts" // local api
 
   const postMessage = async (message, tags) => {
     let tagsArray = tags
@@ -25,7 +28,10 @@ const MessageForm = ({ onError, update }) => {
           message: message,
           tags: tagsArray
         }),
-        headers: { "Content-Type": "application/json" }
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": token
+        }
       })
       if (response.ok) {
         const newMessage = await response.json()

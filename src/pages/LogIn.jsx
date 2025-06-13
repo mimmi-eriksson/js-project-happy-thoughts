@@ -37,9 +37,9 @@ const LogIn = () => {
       }
       const user = data.response
       login({ id: user.id, username: user.userName }, user.accessToken)
-      setMessage("Login successful! You will be redirected to your thoughts shortly.")
+      setMessage("Login successful! You will be redirected to the home page shortly.")
       window.scrollTo(0, 0)
-      navigate("/thoughts")
+      navigate("/")
     } catch (error) {
       setError(error.message || "Failed to log in.")
     }

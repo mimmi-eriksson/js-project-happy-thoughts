@@ -7,6 +7,7 @@ import LogIn from './pages/LogIn'
 import Register from './pages/Register'
 import Thoughts from './pages/Thoughts'
 import NotFound from './pages/NotFound'
+import ProtectedPage from './pages/ProtectedPage'
 
 const App = () => {
   return (
@@ -21,8 +22,14 @@ const App = () => {
               <Route path='/' element={<Home />} />
               <Route path='/login' element={<LogIn />} />
               <Route path='/register' element={<Register />} />
-              <Route path='/thoughts' element={<Thoughts />} />
-              {/* <Route path='/thoughts' element={<MainSection />} /> */}
+              <Route
+                path='/thoughts'
+                element={
+                  <ProtectedPage>
+                    <Thoughts />
+                  </ProtectedPage>
+                }
+              />
               <Route path='*' element={<NotFound />} />
             </Routes>
           </div>

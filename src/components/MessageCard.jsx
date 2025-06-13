@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { formatDistance } from "date-fns"
+import { useAuth } from "../context/AuthContext"
 import MessageCardButton from "./MessageCardButton"
 import LikeButton from "./LikeButton"
 import Tag from "./Tag"
@@ -7,12 +8,14 @@ import SubmitButton from "./SubmitButton"
 import CancelButton from "./CancelButton"
 
 const MessageCard = ({ message, onError, onFilter, update }) => {
+  const { token } = useAuth()
   const [errorMessage, setErrorMessage] = useState("")
   const [editedMessage, setEditedMessage] = useState("")
   const [showInput, setShowInput] = useState(false)
   const maxCharacters = 140
   const minCharacters = 5
-  const url = "https://think-happy-api.onrender.com/thoughts"
+  // const url = "https://think-happy-api.onrender.com/thoughts"
+  const url = "http://localhost:8080/thoughts" // local api
 
   const likeMessage = async () => {
     try {
@@ -35,7 +38,10 @@ const MessageCard = ({ message, onError, onFilter, update }) => {
   const deleteMessage = async () => {
     try {
       setErrorMessage("")
-      const response = await fetch(`${url}/${message._id}`, { method: "DELETE" })
+      const response = await fetch(`${url}/${message._id}`, {
+        method: "DELETE",
+        headers: { "Authorization": token }
+      })
       if (response.ok) {
         const deletedMessage = await response.json()
         update((messages) => messages.filter(m =>
@@ -45,8 +51,6 @@ const MessageCard = ({ message, onError, onFilter, update }) => {
     } catch (error) {
       setErrorMessage(`An error occured when deleting thought: ${error.message}`)
       onError(errorMessage)
-    } finally {
-      //
     }
   }
 
@@ -58,7 +62,10 @@ const MessageCard = ({ message, onError, onFilter, update }) => {
         body: JSON.stringify({
           message: newMessage,
         }),
-        headers: { "Content-Type": "application/json" }
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": token
+        }
       })
       if (response.ok) {
         const editedMessage = await response.json()
