@@ -14,39 +14,27 @@ const Thoughts = () => {
   const [page, setPage] = useState()
   const [maxPages, setMaxPages] = useState(1)
 
-  const baseUrl = "https://think-happy-api.onrender.com/thoughts"
+  const baseUrl = "https://think-happy-api.onrender.com/thoughts/user"
   // const baseUrl = "http://localhost:8080/thoughts" // local api
   const [fetchUrl, setFetchUrl] = useState(baseUrl)
 
-  const likedMessages = []
-
   // update fetch url when page/currentUser changes
   useEffect(() => {
-    let newUrl = `${baseUrl}/user/${currentUser.id}`
+    let newUrl = baseUrl
+    if (messageList === "likedThoughts") {
+      newUrl += "/liked"
+    }
     if (!page || page < 1) {
       setPage(1)
     }
     newUrl += `?page=${page}`
     setFetchUrl(newUrl)
-  }, [page, currentUser])
+  }, [page, currentUser, messageList])
 
   // fetch messages when messageList/fetchUrl/likedMessages changes or on initial render
   useEffect(() => {
-    setPage(1)
-    setMessages([])
-    setMaxPages(1)
-
-    if (messageList === "myThoughts") {
-      fetchMessages()
-    } else if (messageList === "likedThoughts") {
-
-      if (likedMessages.length === 0) {
-        setErrorMessage("You have not liked any thoughts yet. Like one to get started!")
-      }
-      setMessages(likedMessages)
-      setMaxPages(Math.ceil(likedMessages.length / 10))
-    }
-  }, [messageList, fetchUrl])
+    fetchMessages()
+  }, [fetchUrl])
 
   const fetchMessages = async () => {
     try {
@@ -59,7 +47,12 @@ const Thoughts = () => {
       const data = await response.json()
       if (!response.ok) {
         if (response.status === 404) {
-          setErrorMessage("You have no thoughts yet. Post one to get started!")
+          if (messageList === "likedThoughts") {
+            setErrorMessage("You have no liked thoughts yet. Like one to get started!")
+          }
+          if (messageList === "myThoughts") {
+            setErrorMessage("You have no thoughts yet. Post one to get started!")
+          }
           return
         }
       }

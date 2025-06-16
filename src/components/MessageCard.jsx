@@ -20,7 +20,10 @@ const MessageCard = ({ message, onFilter, update }) => {
   const likeMessage = async () => {
     try {
       setError("")
-      const response = await fetch(`${url}/${message._id}/like`, { method: "PATCH" })
+      const response = await fetch(`${url}/${message._id}/like`, {
+        method: "PATCH",
+        headers: { "Authorization": token }
+      })
       if (response.ok) {
         const likedMessage = await response.json()
         update((messages) => messages.map(m =>
