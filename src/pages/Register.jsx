@@ -6,8 +6,8 @@ const Register = () => {
   const [error, setError] = useState("")
   const [message, setMessage] = useState("")
   const navigate = useNavigate()
-
-  const url = "http://localhost:8080/users"
+  const url = "https://think-happy-api.onrender.com/users"
+  // const url = "http://localhost:8080/users" // local api
 
   const signUp = async (userName, password) => {
     setError('')

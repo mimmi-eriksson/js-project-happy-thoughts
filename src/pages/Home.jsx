@@ -12,8 +12,8 @@ const Home = () => {
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
 
-  // const baseUrl = "https://think-happy-api.onrender.com/thoughts"
-  const baseUrl = "http://localhost:8080/thoughts" // local api
+  const baseUrl = "https://think-happy-api.onrender.com/thoughts"
+  // const baseUrl = "http://localhost:8080/thoughts" // local api
   const [fetchUrl, setFetchUrl] = useState(baseUrl)
 
   const [page, setPage] = useState()
@@ -47,13 +47,17 @@ const Home = () => {
       setErrorMessage("")
       setLoading(true)
       const response = await fetch(fetchUrl)
-      if (response.ok) {
-        const data = await response.json()
-        setMessages(data.response.data)
-        setMaxPages(Math.ceil(data.response.totalCount / data.response.limit))
+      const data = await response.json()
+      if (!response.ok) {
+        if (response.status === 404) {
+          setErrorMessage("No thoughts found for this filter. Try a another one.")
+          return
+        }
       }
+      setMessages(data.response.data)
+      setMaxPages(Math.ceil(data.response.totalCount / data.response.limit))
     } catch (error) {
-      setErrorMessage(`An error occured when loading thoughts: ${error.message}`)
+      setErrorMessage(error.message)
     } finally {
       setLoading(false)
     }

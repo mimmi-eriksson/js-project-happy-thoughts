@@ -12,8 +12,8 @@ const MessageForm = ({ update }) => {
   const maxCharacters = 140
   const minCharacters = 5
   const tagsOptions = ["travel", "food", "family", "friends", "humor", "nature", "wellness", "home", "entertainment", "work", "other"]
-  // const url = "https://think-happy-api.onrender.com/thoughts"
-  const url = "http://localhost:8080/thoughts" // local api
+  const url = "https://think-happy-api.onrender.com/thoughts"
+  // const url = "http://localhost:8080/thoughts" // local api
 
   const postMessage = async (message, tags) => {
     let tagsArray = tags
@@ -85,6 +85,7 @@ const MessageForm = ({ update }) => {
       <form
         className="flex flex-col items-start gap-3"
         onSubmit={handleSubmit}
+        autoComplete="off"
       >
         <label htmlFor="thoughtInput">What's making you happy right now?</label>
         <textarea

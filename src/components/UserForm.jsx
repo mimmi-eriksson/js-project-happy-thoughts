@@ -26,6 +26,7 @@ const UserForm = ({ title, onSubmit, error, message }) => {
       <form
         className="flex flex-col gap-8 w-full"
         onSubmit={handleSubmit}
+        autoComplete="off"
       >
         <div>
           <h2 className="pb-1 text-(--color-text) text-xl font-semibold" >{title}</h2>

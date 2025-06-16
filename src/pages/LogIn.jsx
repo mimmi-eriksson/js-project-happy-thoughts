@@ -9,7 +9,8 @@ const LogIn = () => {
   const navigate = useNavigate()
   const { login } = useAuth()
 
-  const url = "http://localhost:8080/users/login"
+  // const url = "http://localhost:8080/users/login" // local api
+  const url = "https://think-happy-api.onrender.com/users/login"
 
   const handleLogIn = async (userName, password) => {
     setError("")

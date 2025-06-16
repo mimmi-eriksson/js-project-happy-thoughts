@@ -14,8 +14,8 @@ const MessageCard = ({ message, onFilter, update }) => {
   const [showInput, setShowInput] = useState(false)
   const maxCharacters = 140
   const minCharacters = 5
-  // const url = "https://think-happy-api.onrender.com/thoughts"
-  const url = "http://localhost:8080/thoughts" // local api
+  const url = "https://think-happy-api.onrender.com/thoughts"
+  // const url = "http://localhost:8080/thoughts" // local api
 
   const likeMessage = async () => {
     try {
@@ -161,7 +161,7 @@ const MessageCard = ({ message, onFilter, update }) => {
             {message.message}
           </p>
           {showInput &&
-            <form onSubmit={onSubmitEditedMessage}>
+            <form onSubmit={onSubmitEditedMessage} autoComplete="off">
               <textarea
                 id="thoughtInput"
                 className="bg-white border border-gray-400 w-full p-2 font-mono resize-none focus:outline-(--color-accent)"

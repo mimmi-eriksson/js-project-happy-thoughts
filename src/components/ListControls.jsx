@@ -1,5 +1,5 @@
 import { useState } from "react"
-import SortOption from "./SortOption"
+import RadioOption from "./RadioOption"
 import FilterOption from "./FilterOption"
 
 const ListControls = ({ sortBy, filterOn, onSort, onFilter }) => {
@@ -32,7 +32,7 @@ const ListControls = ({ sortBy, filterOn, onSort, onFilter }) => {
           <legend className="float-left" >Sort on:</legend>
           <div className="flex gap-5">
             {sortOptions.map(({ id, label }) => (
-              <SortOption
+              <RadioOption
                 key={id}
                 radioGroup="sortBy"
                 id={id}
@@ -47,7 +47,7 @@ const ListControls = ({ sortBy, filterOn, onSort, onFilter }) => {
         <div className="flex items-center gap-6">
           <label className="" htmlFor="tags">Filter on:</label>
           <select
-            className="w-40 bg-[#ffeded] border border-(--color-accent) rounded-lg focus:outline-2 focus:outline-(--color-primary) p-1 cursor-pointer"
+            className="w-45 bg-[#ffeded] border border-(--color-accent) rounded-full focus:outline-2 focus:outline-(--color-primary) p-1 cursor-pointer"
             name="tags"
             id="tags"
             value={filter}
