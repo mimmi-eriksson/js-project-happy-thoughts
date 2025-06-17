@@ -5,7 +5,7 @@ import Footer from "./sections/Footer"
 import Home from './pages/Home'
 import LogIn from './pages/LogIn'
 import Register from './pages/Register'
-import Thoughts from './pages/Thoughts'
+import MyThoughts from './pages/MyThoughts'
 import NotFound from './pages/NotFound'
 import ProtectedPage from './pages/ProtectedPage'
 
@@ -23,10 +23,10 @@ const App = () => {
               <Route path='/login' element={<LogIn />} />
               <Route path='/register' element={<Register />} />
               <Route
-                path='/thoughts'
+                path='/mythoughts'
                 element={
                   <ProtectedPage>
-                    <Thoughts />
+                    <MyThoughts />
                   </ProtectedPage>
                 }
               />

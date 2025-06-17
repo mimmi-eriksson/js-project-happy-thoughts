@@ -5,7 +5,7 @@ import Loader from "../components/Loader"
 import MessagesContainer from "../components/MessagesContainer"
 import RadioOption from "../components/RadioOption"
 
-const Thoughts = () => {
+const MyThoughts = () => {
   const { currentUser, token } = useAuth()
   const [messageList, setMessageList] = useState("myThoughts")
   const [messages, setMessages] = useState([])
@@ -99,4 +99,4 @@ const Thoughts = () => {
   )
 }
 
-export default Thoughts
+export default MyThoughts
